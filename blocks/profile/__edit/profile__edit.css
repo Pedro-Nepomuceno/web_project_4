@@ -1,0 +1,10 @@
+.profile__edit {
+  grid-area: button;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  margin-top: 77px;
+  margin-left: 16px;
+  border-color: white;
+  padding: 0;
+}

@@ -1,0 +1,11 @@
+.header {
+  border: solid 1px;
+  border-color: #545454;
+
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  color: white;
+  max-width: 880px;
+  margin: 119px auto 0;
+}
