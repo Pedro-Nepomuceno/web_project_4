@@ -8,3 +8,6 @@
   border-color: white;
   padding: 0;
 }
+.profile__edit:hover:hover {
+  opacity: 0.5;
+}

@@ -5,10 +5,15 @@
   border-radius: 2px;
   border-color: white;
   margin-top: 75px;
+  cursor: pointer;
 }
+
 @media screen and (max-width: 890px) {
   .profile__plus {
     width: 278px;
     margin-top: 36px;
   }
+}
+.profile__plus:hover {
+  opacity: 0.6;
 }

@@ -2,3 +2,7 @@
   border: none;
   background-color: transparent;
 }
+.elements__info-button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
