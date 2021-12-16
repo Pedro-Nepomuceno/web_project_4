@@ -1,19 +1,26 @@
 .profile__plus {
   background-color: transparent;
+  background-image: url(../../../images/plus.svg);
+  background-repeat: no-repeat;
+  background-position: center;
   width: 150px;
   height: 50px;
   border-radius: 2px;
   border-color: white;
   margin-top: 75px;
   cursor: pointer;
+  border: 2px solid #ffffff;
+}
+.profile__plus:hover {
+  opacity: 0.6;
 }
 
-@media screen and (max-width: 890px) {
+.profile__plus:focus-visible {
+  outline: transparent;
+}
+@media screen and (max-width: 880px) {
   .profile__plus {
     width: 278px;
     margin-top: 36px;
   }
-}
-.profile__plus:hover {
-  opacity: 0.6;
 }

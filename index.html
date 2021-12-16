@@ -11,7 +11,7 @@
     <header class="header">
       <img
         class="header__image"
-        src="./images/around.png"
+        src="./images/header.svg"
         alt="Around the United States"
       />
     </header>
@@ -28,18 +28,14 @@
             <h1 class="profile__name">Jacques Cousteau</h1>
             <p class="profile__text">Explorer</p>
 
-            <button class="profile__edit">
-              <img
-                class="profile__edit-image"
-                src="images/Vector.svg"
-                alt="edit button"
-              />
-            </button>
+            <button
+              aria-label="Edit"
+              type="button"
+              class="profile__edit"
+            ></button>
           </div>
         </div>
-        <button class="profile__plus">
-          <img class="profile__add" src="./images/plus.svg" alt="add button" />
-        </button>
+        <button aria-label="Add" type="button" class="profile__plus"></button>
       </section>
       <section class="elements">
         <div class="elements__photo">
@@ -47,10 +43,9 @@
             class="elements__pic"
             src="./images/yosemite.jpg"
             alt="yosemite"
-            style="width: 100%"
           />
           <div class="elements__info">
-            <p class="elements__info-text">Yosemite Valley</p>
+            <h3 class="elements__info-text">Yosemite Valley</h3>
             <button class="elements__info-button">
               <img src="./images/heart.svg" alt="like button" />
             </button>
@@ -61,10 +56,9 @@
             class="elements__pic"
             src="./images/lake-louise.jpg"
             alt="Lake Louise"
-            style="width: 100%"
           />
           <div class="elements__info">
-            <p class="elements__info-text">Lake Louise</p>
+            <h3 class="elements__info-text">Lake Louise</h3>
             <button class="elements__info-button">
               <img src="./images/heart.svg" alt="like button" />
             </button>
@@ -75,38 +69,28 @@
             class="elements__pic"
             src="./images/bald.png"
             alt="Bald Mountains"
-            style="width: 100%"
           />
           <div class="elements__info">
-            <p class="elements__info-text">Bald Mountains</p>
+            <h3 class="elements__info-text">Bald Mountains</h3>
             <button class="elements__info-button">
               <img src="./images/heart.svg" alt="like button" />
             </button>
           </div>
         </div>
         <div class="elements__photo">
-          <img
-            class="elements__pic"
-            src="./images/latemar.png"
-            alt="Latemar"
-            style="width: 100%"
-          />
+          <img class="elements__pic" src="./images/latemar.png" alt="Latemar" />
           <div class="elements__info">
-            <p class="elements__info-text">Latemar</p>
-            <button class="elements__info-button">
+            <h3 class="elements__info-text">Latemar</h3>
+            <button type="button" class="elements__info-button">
               <img src="./images/heart.svg" alt="like button" />
             </button>
           </div>
         </div>
         <div class="elements__photo">
-          <img
-            src="./images/vanoise.png"
-            alt="Vanoise Nationa..."
-            style="width: 100%"
-          />
+          <img src="./images/vanoise.png" alt="Vanoise Nationa..." />
           <div class="elements__info">
-            <p class="elements__info-text">Vanoise Nationa...</p>
-            <button class="elements__info-button">
+            <h3 class="elements__info-text">Vanoise Nationa...</h3>
+            <button type="button" class="elements__info-button">
               <img
                 class="elements__pic"
                 src="./images/heart.svg"
@@ -120,39 +104,40 @@
             class="elements__pic"
             src="./images/lago-di-braies.png"
             alt="Lago di Braies"
-            style="width: 100%"
           />
           <div class="elements__info">
-            <p class="elements__info-text">Lago di Braies</p>
+            <h3 class="elements__info-text">Lago di Braies</h3>
             <button class="elements__info-button">
               <img src="./images/heart.svg" alt="like button" />
             </button>
           </div>
         </div>
       </section>
-      <div class="popup">
-        <div class="popup__content">
-          <button class="popup__close" type="button"></button>
-          <h3 class="popup__title">Edit Profile</h3>
-          <form class="popup__form" name="new">
-            <input
-              type="text"
-              placeholder="name"
-              class="popup__input popup__input_type_name"
-            />
-            <input
-              type="text"
-              placeholder="About me"
-              class="popup__input popup__input_type_description"
-            />
-            <button type="submit" class="popup__submit">Save</button>
-          </form>
-        </div>
-      </div>
     </main>
     <footer class="footer">
       <p class="footer__text">© Pedro Nepomuceno.</p>
     </footer>
+    <div class="popup">
+      <div class="popup__content">
+        <button class="popup__close" type="button"></button>
+        <h3 class="popup__title">Edit Profile</h3>
+        <form class="popup__form" name="new">
+          <input
+            name="name"
+            type="text"
+            placeholder="name"
+            class="popup__input popup__input_type_name"
+          />
+          <input
+            name="description"
+            type="text"
+            placeholder="About me"
+            class="popup__input popup__input_type_description"
+          />
+          <button type="submit" class="popup__submit">Save</button>
+        </form>
+      </div>
+    </div>
     <script src="./script/script.js"></script>
   </body>
 </html>
