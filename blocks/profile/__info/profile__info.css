@@ -7,3 +7,8 @@
     "subtext subtext";
   padding-left: 30px;
 }
+@media screen and (max-width: 544px) {
+  .profile__info {
+    padding-left: 0;
+  }
+}

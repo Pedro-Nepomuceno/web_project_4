@@ -9,4 +9,4 @@ Interactive page where users can add, remove, or like photos
 
 **Link to the webpage**
 
-- https://github.com/Pedro-Nepomuceno/web_project_4.git
+- https://pedro-nepomuceno.github.io/web_project_4/
