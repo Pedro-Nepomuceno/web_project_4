@@ -1,8 +1,6 @@
 .elements__info-button {
-  border: none;
   background-color: transparent;
   background: url(../../../images/heart.svg) no-repeat;
-
   display: flex;
   justify-content: center;
   align-self: center;

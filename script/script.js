@@ -16,10 +16,7 @@ const buttonAdd = document.querySelector('.profile__plus');
 const addInputName = document.querySelector('.add__input_type_name');
 const addInputDescription = document.querySelector('.add__input_type_name');
 const likeButton = document.querySelector('.elements__info-button');
-// functions 
-function blackHeart (){
-    likeButton.classList.toggle('elements__info-button_active')
-}
+// functions
 
 function newPhoto (){
     if(!addPhoto.classList.contains('add_open')){
@@ -49,7 +46,7 @@ toggleModal();
 
 
 // event listener
-likeButton.addEventListener('click', blackHeart); 
+likeButton.addEventListener("click", () => {likeButton.classList.toggle("elements__info-button_active")});
 buttonAdd.addEventListener('click',newPhoto);
 addClose.addEventListener('click', newPhoto);
 popupForm.addEventListener('submit', formSubmit);
