@@ -44,11 +44,10 @@
             src="./images/yosemite.jpg"
             alt="yosemite"
           />
+          <button type="reset" class="elements__delete"></button>
           <div class="elements__info">
             <h2 class="elements__info-text">Yosemite Valley</h2>
-            <button class="elements__info-button">
-              <img src="./images/heart.svg" alt="like button" />
-            </button>
+            <button class="elements__info-button"></button>
           </div>
         </div>
         <div class="elements__photo">
@@ -57,11 +56,10 @@
             src="./images/lake-louise.jpg"
             alt="Lake Louise"
           />
+          <button type="reset" class="elements__delete"></button>
           <div class="elements__info">
             <h2 class="elements__info-text">Lake Louise</h2>
-            <button class="elements__info-button">
-              <img src="./images/heart.svg" alt="like button" />
-            </button>
+            <button class="elements__info-button"></button>
           </div>
         </div>
         <div class="elements__photo">
@@ -70,29 +68,26 @@
             src="./images/bald.png"
             alt="Bald Mountains"
           />
+          <button type="reset" class="elements__delete"></button>
           <div class="elements__info">
             <h2 class="elements__info-text">Bald Mountains</h2>
-            <button class="elements__info-button">
-              <img src="./images/heart.svg" alt="like button" />
-            </button>
+            <button class="elements__info-button"></button>
           </div>
         </div>
         <div class="elements__photo">
-          <img class="elements__pic" src="./images/latemar.png" alt="Latemar" />
+          <img src="./images/latemar.png" alt="Latemar" />
+          <button type="reset" class="elements__delete"></button>
           <div class="elements__info">
-            <h2 class="elements__info-text">Latemar</h2>
-            <button type="button" class="elements__info-button">
-              <img src="./images/heart.svg" alt="like button" />
-            </button>
+            <h2 class="elements__info-text">latemar</h2>
+            <button type="button" class="elements__info-button"></button>
           </div>
         </div>
         <div class="elements__photo">
           <img src="./images/vanoise.png" alt="Vanoise Nationa..." />
+          <button type="reset" class="elements__delete"></button>
           <div class="elements__info">
             <h2 class="elements__info-text">Vanoise Nationa...</h2>
-            <button type="button" class="elements__info-button">
-              <img src="./images/heart.svg" alt="like button" />
-            </button>
+            <button type="button" class="elements__info-button"></button>
           </div>
         </div>
         <div class="elements__photo">
@@ -101,11 +96,10 @@
             src="./images/lago-di-braies.png"
             alt="Lago di Braies"
           />
+          <button type="reset" class="elements__delete"></button>
           <div class="elements__info">
             <h2 class="elements__info-text">Lago di Braies</h2>
-            <button class="elements__info-button">
-              <img src="./images/heart.svg" alt="like button" />
-            </button>
+            <button class="elements__info-button"></button>
           </div>
         </div>
       </section>
@@ -131,6 +125,27 @@
             class="popup__input popup__input_type_description"
           />
           <button type="submit" class="popup__submit">Save</button>
+        </form>
+      </div>
+    </div>
+    <div class="add">
+      <div class="add__content">
+        <button class="add__close" type="button"></button>
+        <h3 class="add__title">New Place</h3>
+        <form class="add__form" name="new">
+          <input
+            name="name"
+            type="text"
+            placeholder="name"
+            class="add__input add__input_type_name"
+          />
+          <input
+            name="description"
+            type="text"
+            placeholder="About me"
+            class="add__input add__input_type_description"
+          />
+          <button type="submit" class="add__submit">Save</button>
         </form>
       </div>
     </div>
