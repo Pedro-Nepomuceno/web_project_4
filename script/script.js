@@ -14,14 +14,63 @@ const profileText = document.querySelector('.profile__text');
 const addPhoto = document.querySelector('.add');
 const buttonAdd = document.querySelector('.profile__plus');
 const addInputName = document.querySelector('.add__input_type_name');
-const addInputDescription = document.querySelector('.add__input_type_name');
+const addInputDescription = document.querySelector('.add__input_type_description');
 const likeButton = document.querySelector('.elements__info-button');
-// functions
+const userTemplate = document.querySelector("#elements-template").content;
+const photoGallery = document.querySelector('.elements');
 
+// Array add photos to webpage
+const photoArray = [
+    {
+        title: "Yosemite Valley",
+        url: "https://code.s3.yandex.net/web-code/yosemite.jpg"
+      },
+      {
+        title: "Lake Louise",
+        url: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
+      },
+      {
+        title: "Bald Mountains",
+        url: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
+      },
+      {
+        title: "Latemar",
+        url: "https://code.s3.yandex.net/web-code/latemar.jpg"
+      },
+      {
+        title: "Vanoise National Park",
+        url: "https://code.s3.yandex.net/web-code/vanoise.jpg"
+      },
+      {
+        title: "Lago di Braies",
+        url: "https://code.s3.yandex.net/web-code/lago.jpg"
+      },
+  
+]
+const userElement = userTemplate.querySelector('.elements__photo').cloneNode(true)
+// function to add cloned template to page 
+function galleryPhotos (data) {
+
+   const imageElement = userElement.querySelector(".elements__pic");
+   const elementTitle = userElement.querySelector(".elements__info-text")
+    
+    elementTitle.textContent = data.title
+    imageElement.src = data.url
+    photoGallery.prepend(userElement)
+    
+    return userElement;
+}
+
+photoArray.forEach((element) =>{
+    galleryPhotos(element);
+} )
+
+
+// functions
 function newPhoto (){
     if(!addPhoto.classList.contains('add_open')){
         addInputName.value = "Title";
-        addInputDescription.value = "image link";
+        addInputDescription.value = "image url";
     }
     addPhoto.classList.toggle("add_open");
 }
@@ -43,7 +92,6 @@ evt.preventDefault();
 
 toggleModal();
 }
-
 
 // event listener
 likeButton.addEventListener("click", () => {likeButton.classList.toggle("elements__info-button_active")});

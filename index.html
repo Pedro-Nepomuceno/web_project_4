@@ -38,70 +38,7 @@
         <button aria-label="Add" type="button" class="profile__plus"></button>
       </section>
       <section class="elements">
-        <div class="elements__photo">
-          <img
-            class="elements__pic"
-            src="./images/yosemite.jpg"
-            alt="yosemite"
-          />
-          <button type="reset" class="elements__delete"></button>
-          <div class="elements__info">
-            <h2 class="elements__info-text">Yosemite Valley</h2>
-            <button type="button" class="elements__info-button"></button>
-          </div>
-        </div>
-        <div class="elements__photo">
-          <img
-            class="elements__pic"
-            src="./images/lake-louise.jpg"
-            alt="Lake Louise"
-          />
-          <button type="reset" class="elements__delete"></button>
-          <div class="elements__info">
-            <h2 class="elements__info-text">Lake Louise</h2>
-            <button type="button" class="elements__info-button"></button>
-          </div>
-        </div>
-        <div class="elements__photo">
-          <img
-            class="elements__pic"
-            src="./images/bald.png"
-            alt="Bald Mountains"
-          />
-          <button type="reset" class="elements__delete"></button>
-          <div class="elements__info">
-            <h2 class="elements__info-text">Bald Mountains</h2>
-            <button type="button" class="elements__info-button"></button>
-          </div>
-        </div>
-        <div class="elements__photo">
-          <img src="./images/latemar.png" alt="Latemar" />
-          <button type="reset" class="elements__delete"></button>
-          <div class="elements__info">
-            <h2 class="elements__info-text">latemar</h2>
-            <button type="button" class="elements__info-button"></button>
-          </div>
-        </div>
-        <div class="elements__photo">
-          <img src="./images/vanoise.png" alt="Vanoise Nationa..." />
-          <button type="reset" class="elements__delete"></button>
-          <div class="elements__info">
-            <h2 class="elements__info-text">Vanoise Nationa...</h2>
-            <button type="button" class="elements__info-button"></button>
-          </div>
-        </div>
-        <div class="elements__photo">
-          <img
-            class="elements__pic"
-            src="./images/lago-di-braies.png"
-            alt="Lago di Braies"
-          />
-          <button type="reset" class="elements__delete"></button>
-          <div class="elements__info">
-            <h2 class="elements__info-text">Lago di Braies</h2>
-            <button type="button" class="elements__info-button"></button>
-          </div>
-        </div>
+        <!-- photos will be added with js -->
       </section>
     </main>
     <footer class="footer">
@@ -149,6 +86,16 @@
         </form>
       </div>
     </div>
+    <template id="elements-template">
+      <div class="elements__photo">
+        <img class="elements__pic" src="" alt="" />
+        <button type="reset" class="elements__delete"></button>
+        <div class="elements__info">
+          <h2 class="elements__info-text"></h2>
+          <button type="button" class="elements__info-button"></button>
+        </div>
+      </div>
+    </template>
     <script src="./script/script.js"></script>
   </body>
 </html>
