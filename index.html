@@ -44,11 +44,11 @@
     <footer class="footer">
       <p class="footer__text">© Pedro Nepomuceno.</p>
     </footer>
-    <div class="popup">
+    <div class="popup" id="edit-popup">
       <div class="popup__content">
         <button class="popup__close" type="button"></button>
         <h3 class="popup__title">Edit Profile</h3>
-        <form class="popup__form" name="new">
+        <form class="popup__form" name="edit profile">
           <input
             name="name"
             type="text"
@@ -65,24 +65,24 @@
         </form>
       </div>
     </div>
-    <div class="add">
-      <div class="add__content">
-        <button class="add__close" type="button"></button>
-        <h3 class="add__title">New Place</h3>
-        <form class="add__form" name="new">
+    <div class="popup" id="add-popup">
+      <div class="popup__content">
+        <button class="popup__close" type="button"></button>
+        <h3 class="popup__title">New Place</h3>
+        <form class="popup__form" name="add place">
           <input
-            name="name"
+            name="Title"
             type="text"
-            placeholder="name"
-            class="add__input add__input_type_name"
+            placeholder="Title"
+            class="popup__input"
           />
           <input
-            name="description"
+            name="URL"
             type="text"
-            placeholder="About me"
-            class="add__input add__input_type_description"
+            placeholder="URL"
+            class="popup__input"
           />
-          <button type="submit" class="add__submit">Save</button>
+          <button type="submit" class="popup__submit">Create</button>
         </form>
       </div>
     </div>

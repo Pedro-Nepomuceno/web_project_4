@@ -1,12 +1,11 @@
 
 // toggle elements 
 
-const modalWindow = document.querySelector('.popup');
+const editProfile = document.querySelector('.popup');
 const popupForm = document.querySelector('.popup__form');
-const popupClose = document.querySelector('.popup__close');
+const popupClose = document.querySelectorAll('.popup__close');
 const popupSubmit = document.querySelector('.popup__submit');
 const editButton = document.querySelector('.profile__edit');
-const addClose = document.querySelector('.add__close');
 const inputName = document.querySelector('.popup__input_type_name');
 const inputDescription = document.querySelector('.popup__input_type_description');
 const profileName = document.querySelector('.profile__name');
@@ -15,7 +14,7 @@ const addPhoto = document.querySelector('.add');
 const buttonAdd = document.querySelector('.profile__plus');
 const addInputName = document.querySelector('.add__input_type_name');
 const addInputDescription = document.querySelector('.add__input_type_description');
-const likeButton = document.querySelector('.elements__info-button');
+
 const userTemplate = document.querySelector("#elements-template").content;
 const photoGallery = document.querySelector('.elements');
 
@@ -47,56 +46,79 @@ const photoArray = [
       },
   
 ]
-const userElement = userTemplate.querySelector('.elements__photo').cloneNode(true)
 // function to add cloned template to page 
 function galleryPhotos (data) {
-
+    const userElement = userTemplate.querySelector('.elements__photo').cloneNode(true);
    const imageElement = userElement.querySelector(".elements__pic");
-   const elementTitle = userElement.querySelector(".elements__info-text")
+   const elementTitle = userElement.querySelector(".elements__info-text");
+   const likeButton = userElement.querySelector('.elements__info-button');
+   const deletePhoto = userElement.querySelector('.elements__delete');
+   deletePhoto.addEventListener("click", () =>{userElement.remove()} );
+   likeButton.addEventListener("click", () => {likeButton.classList.toggle("elements__info-button_active")});
+    elementTitle.textContent = data.title;
+    imageElement.src = data.url;
     
-    elementTitle.textContent = data.title
-    imageElement.src = data.url
-    photoGallery.prepend(userElement)
-    
+
     return userElement;
 }
 
-photoArray.forEach((element) =>{
-    galleryPhotos(element);
+function addCard(element){
+    photoGallery.prepend(element)
+} 
+function renderCard(data){
+    addCard(galleryPhotos(data))
+}
+
+
+
+ photoArray.forEach((element) =>{
+    renderCard(element);
 } )
 
 
+
 // functions
-function newPhoto (){
-    if(!addPhoto.classList.contains('add_open')){
-        addInputName.value = "Title";
-        addInputDescription.value = "image url";
-    }
-    addPhoto.classList.toggle("add_open");
+
+// function newPhoto (){
+//     if(!addPhoto.classList.contains('add_open')){
+//         addInputName.value = "Title";
+//         addInputDescription.value = "image url";
+//     }
+//     addPhoto.classList.toggle("add_open");
+// }
+
+function openModal(modal){
+    inputName.value = profileName.textContent;
+    inputDescription.value = profileText.textContent;
+    modal.classList.add("popup_open");
+
+}
+function closeModal(modal){
+    modal.classList.remove("popup_open");
 }
 
-function toggleModal (){
-    if(!modalWindow.classList.contains("popup_open")){
-inputName.value = profileName.textContent;
-inputDescription.value = profileText.textContent;
-    }
 
-modalWindow.classList.toggle("popup_open");
-}
+// function toggleModal (){
+//     if(!modalWindow.classList.contains("popup_open")){
+// inputName.value = profileName.textContent;
+// inputDescription.value = profileText.textContent;
+//     }
+
+// modalWindow.classList.toggle("popup_open");
+// }
  
 
-function formSubmit (evt){
+function editFormSubmit (evt){
 evt.preventDefault();
  profileName.textContent = inputName.value;
  profileText.textContent = inputDescription.value;
 
-toggleModal();
+ closeModal(editProfile);
 }
 
 // event listener
-likeButton.addEventListener("click", () => {likeButton.classList.toggle("elements__info-button_active")});
-buttonAdd.addEventListener('click',newPhoto);
-addClose.addEventListener('click', newPhoto);
-popupForm.addEventListener('submit', formSubmit);
-editButton.addEventListener('click', toggleModal);
-popupClose.addEventListener('click', toggleModal);
+
+// buttonAdd.addEventListener('click',newPhoto);
+popupForm.addEventListener('submit', editFormSubmit);
+editButton.addEventListener('click', () => {openModal(editProfile)});
+popupClose.addEventListener('click',()=>{closeModal(editProfile)});
