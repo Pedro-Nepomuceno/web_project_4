@@ -25,7 +25,7 @@
           />
 
           <div class="profile__info">
-            <h1 class="profile__name">Jacques Cousteau</h1>
+            <h1 class="profile__name">Pedro Nepomuceno</h1>
             <p class="profile__text">Explorer</p>
 
             <button
@@ -72,18 +72,29 @@
         <form class="popup__form" name="add place">
           <input
             name="Title"
+            id="title-input"
             type="text"
             placeholder="Title"
             class="popup__input"
           />
           <input
             name="URL"
+            id="url-input"
             type="text"
             placeholder="URL"
             class="popup__input"
           />
           <button type="submit" class="popup__submit">Create</button>
         </form>
+      </div>
+    </div>
+    <div class="popup" id="photo">
+      <div class="popup__content popup__content_type_image">
+        <button class="popup__close" type="button"></button>
+
+        <img class="popup__image" src="" alt="" />
+
+        <p class="popup__caption"></p>
       </div>
     </div>
     <template id="elements-template">

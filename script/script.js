@@ -12,12 +12,13 @@ const profileName = document.querySelector('.profile__name');
 const profileText = document.querySelector('.profile__text');
 const addPhoto = document.querySelector('.add');
 const buttonAdd = document.querySelector('.profile__plus');
-const addInputName = document.querySelector('.add__input_type_name');
-const addInputDescription = document.querySelector('.add__input_type_description');
-
+const addInputName = document.querySelector('#title-input');
+const addInputDescription = document.querySelector('#url-input');
+const addCardModal = document.querySelector('#add-popup');
 const userTemplate = document.querySelector("#elements-template").content;
 const photoGallery = document.querySelector('.elements');
-
+const createPhoto = document.querySelector('.popup__submit_create');
+const imageModal = document.querySelector('#photo');
 // Array add photos to webpage
 const photoArray = [
     {
@@ -58,6 +59,14 @@ function galleryPhotos (data) {
     elementTitle.textContent = data.title;
     imageElement.src = data.url;
     
+    imageElement.addEventListener('click', () => {
+         const popupImage =  document.querySelector('.popup__image');
+         const popupTitle = document.querySelector('.popup__caption');
+         popupTitle.textContent = data.title;
+         popupImage.src = data.url;
+        openModal(imageModal);
+    })
+    
 
     return userElement;
 }
@@ -69,10 +78,9 @@ function renderCard(data){
     addCard(galleryPhotos(data))
 }
 
-
-
  photoArray.forEach((element) =>{
     renderCard(element);
+
 } )
 
 
@@ -116,9 +124,24 @@ evt.preventDefault();
  closeModal(editProfile);
 }
 
+function addFormSubmit (evt){
+    evt.preventDefault();
+    const element = { url: addInputDescription.value, title: addInputName.value };
+    renderCard(element);
+    
+     closeModal(addCardModal);
+    }
+
 // event listener
 
-// buttonAdd.addEventListener('click',newPhoto);
+addCardModal.addEventListener('submit', addFormSubmit);
 popupForm.addEventListener('submit', editFormSubmit);
 editButton.addEventListener('click', () => {openModal(editProfile)});
-popupClose.addEventListener('click',()=>{closeModal(editProfile)});
+buttonAdd.addEventListener('click', ()=> {openModal(addCardModal)});
+popupClose.forEach( (modalclose) => {
+modalclose.addEventListener('click', (e) => { const popup = modalclose.closest('.popup');
+closeModal(popup);
+});
+});
+
+
