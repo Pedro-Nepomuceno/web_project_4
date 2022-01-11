@@ -1,7 +1,7 @@
 
 // toggle elements 
 
-const editProfile = document.querySelector('.popup');
+const editProfile = document.querySelector('.popup__type-edit_profile');
 const editModalProfile = document.querySelector('.popup__form');
 const closeModalProfile = document.querySelectorAll('.popup__close');
 const popupSubmit = document.querySelector('.popup__submit');
@@ -49,7 +49,7 @@ const photoArray = [
   
 ]
 // function to add cloned template to page 
-function cloneTemplate (data) {
+function createCard (data) {
     const userElement = cardTemplate.querySelector('.elements__photo').cloneNode(true);
    const imageElement = userElement.querySelector(".elements__pic");
    const elementTitle = userElement.querySelector(".elements__info-text");
@@ -66,6 +66,7 @@ function cloneTemplate (data) {
          const popupTitle = document.querySelector('.popup__caption');
          popupTitle.textContent = data.title;
          popupImage.src = data.url;
+         popupImage.alt = data.title
         openModal(imageModal);
     })
     
@@ -77,7 +78,7 @@ function addCard(element){
     photoGallery.prepend(element)
 } 
 function renderCard(data){
-    addCard(cloneTemplate(data))
+    addCard(createCard(data))
 }
 
  photoArray.forEach((element) =>{
@@ -89,13 +90,6 @@ function renderCard(data){
 
 // functions
 
-// function newPhoto (){
-//     if(!addPhoto.classList.contains('add_open')){
-//         addInputName.value = "Title";
-//         addInputDescription.value = "image url";
-//     }
-//     addPhoto.classList.toggle("add_open");
-// }
 
 function openProfilePopup(editProfile) { 
     inputName.value = profileName.textContent;
@@ -113,15 +107,7 @@ function closeModal(modal){
 }
 
 
-// function toggleModal (){
-//     if(!modalWindow.classList.contains("popup_open")){
-// inputName.value = profileName.textContent;
-// inputDescription.value = profileText.textContent;
-//     }
 
-// modalWindow.classList.toggle("popup_open");
-// }
- 
 
 function editFormSubmit (evt){
 evt.preventDefault();
