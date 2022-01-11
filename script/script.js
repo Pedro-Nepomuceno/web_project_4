@@ -1,7 +1,7 @@
 
 // toggle elements 
 
-const editProfile = document.querySelector('.popup__type-edit_profile');
+const editProfile = document.querySelector('.popup_type-edit_profile');
 const editModalProfile = document.querySelector('.popup__form');
 const closeModalProfile = document.querySelectorAll('.popup__close');
 const popupSubmit = document.querySelector('.popup__submit');
