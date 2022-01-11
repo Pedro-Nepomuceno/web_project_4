@@ -2,8 +2,8 @@
 // toggle elements 
 
 const editProfile = document.querySelector('.popup');
-const popupForm = document.querySelector('.popup__form');
-const popupClose = document.querySelectorAll('.popup__close');
+const editModalProfile = document.querySelector('.popup__form');
+const closeModalProfile = document.querySelectorAll('.popup__close');
 const popupSubmit = document.querySelector('.popup__submit');
 const editButton = document.querySelector('.profile__edit');
 const inputName = document.querySelector('.popup__input_type_name');
@@ -15,10 +15,11 @@ const buttonAdd = document.querySelector('.profile__plus');
 const addInputName = document.querySelector('#title-input');
 const addInputDescription = document.querySelector('#url-input');
 const addCardModal = document.querySelector('#add-popup');
-const userTemplate = document.querySelector("#elements-template").content;
+const cardTemplate = document.querySelector("#elements-template").content;
 const photoGallery = document.querySelector('.elements');
 const createPhoto = document.querySelector('.popup__submit_create');
 const imageModal = document.querySelector('#photo');
+
 // Array add photos to webpage
 const photoArray = [
     {
@@ -48,8 +49,8 @@ const photoArray = [
   
 ]
 // function to add cloned template to page 
-function galleryPhotos (data) {
-    const userElement = userTemplate.querySelector('.elements__photo').cloneNode(true);
+function cloneTemplate (data) {
+    const userElement = cardTemplate.querySelector('.elements__photo').cloneNode(true);
    const imageElement = userElement.querySelector(".elements__pic");
    const elementTitle = userElement.querySelector(".elements__info-text");
    const likeButton = userElement.querySelector('.elements__info-button');
@@ -58,6 +59,7 @@ function galleryPhotos (data) {
    likeButton.addEventListener("click", () => {likeButton.classList.toggle("elements__info-button_active")});
     elementTitle.textContent = data.title;
     imageElement.src = data.url;
+    imageElement.alt = data.title
     
     imageElement.addEventListener('click', () => {
          const popupImage =  document.querySelector('.popup__image');
@@ -75,7 +77,7 @@ function addCard(element){
     photoGallery.prepend(element)
 } 
 function renderCard(data){
-    addCard(galleryPhotos(data))
+    addCard(cloneTemplate(data))
 }
 
  photoArray.forEach((element) =>{
@@ -95,12 +97,17 @@ function renderCard(data){
 //     addPhoto.classList.toggle("add_open");
 // }
 
-function openModal(modal){
+function openProfilePopup(editProfile) { 
     inputName.value = profileName.textContent;
     inputDescription.value = profileText.textContent;
-    modal.classList.add("popup_open");
+    openModal(editProfile);
+    } 
 
+
+function openModal(modal){
+    modal.classList.add("popup_open");
 }
+
 function closeModal(modal){
     modal.classList.remove("popup_open");
 }
@@ -135,11 +142,11 @@ function addFormSubmit (evt){
 // event listener
 
 addCardModal.addEventListener('submit', addFormSubmit);
-popupForm.addEventListener('submit', editFormSubmit);
-editButton.addEventListener('click', () => {openModal(editProfile)});
+editModalProfile.addEventListener('submit', editFormSubmit);
+editButton.addEventListener('click', () => {openProfilePopup(editProfile)});
 buttonAdd.addEventListener('click', ()=> {openModal(addCardModal)});
-popupClose.forEach( (modalclose) => {
-modalclose.addEventListener('click', (e) => { const popup = modalclose.closest('.popup');
+closeModalProfile.forEach( (modalClose) => {
+modalClose.addEventListener('click', (e) => { const popup = modalClose.closest('.popup');
 closeModal(popup);
 });
 });
