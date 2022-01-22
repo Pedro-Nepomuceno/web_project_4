@@ -54,12 +54,18 @@
             type="text"
             placeholder="name"
             class="popup__input popup__input_type_name"
+            required
+            minlength="2"
+            maxlength="40"
           />
           <input
             name="description"
             type="text"
             placeholder="About me"
             class="popup__input popup__input_type_description"
+            required
+            minlength="2"
+            maxlength="200"
           />
           <button type="submit" class="popup__submit">Save</button>
         </form>
@@ -69,7 +75,7 @@
       <div class="popup__content">
         <button class="popup__close" type="button"></button>
         <h3 class="popup__title">New Place</h3>
-        <form class="popup__form" name="add place">
+        <form class="popup__form" name="add place" novalidate>
           <input
             name="Title"
             id="title-input"
@@ -108,5 +114,6 @@
       </div>
     </template>
     <script src="./script/script.js"></script>
+    <script src="./script/validate.js"></script>
   </body>
 </html>
