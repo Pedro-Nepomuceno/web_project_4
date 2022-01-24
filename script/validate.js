@@ -4,22 +4,12 @@ const inactiveButtonClass = document.querySelectorAll(".popup__button_disabled")
 const inputErrorClass = document.querySelectorAll(".popup__input_type_error");
 const errorClass = document.querySelectorAll(".popup__error_visible");
 
+const inputElement = document.querySelectorAll(".popup__input");
 
 
 
-const setEventListeners = (inputElement) => {
-    const inputs = document.querySelectorAll(".popup__input");
-    const formElement = document.querySelectorAll(".popup__form");
-    inputList = Array.from(inputs)
-console.log(inputList);
-    inputList.forEach((inputElement) =>{
-        inputElement.addEventListener('input', () =>{
-            isValid(formElement,inputs)
-        } )
-    })
-}
 const isValid = (formElement,inputElement) => {
-   
+    
     if(!inputElement.validity.valid){
         showInputError(formElement, inputElement, inputElement.validationMessage);
     }
@@ -44,7 +34,17 @@ const hideInputError = (formElement, inputElement) => {
   errorElement.textContent = "";
 }; 
 
-
+const setEventListeners = (inputElement) => {
+   
+    const formElement = document.querySelectorAll(".popup__form");
+    inputList = Array.from(inputElement)
+console.log(inputList);
+    inputList.forEach((inputElement) =>{
+        inputElement.addEventListener('input', () =>{
+            isValid(formElement,inputElement)
+        } )
+    })
+}
 const enableValidation = () => {
     const formElement = document.querySelectorAll(".popup__form");
     const formList = Array.from(formElement);

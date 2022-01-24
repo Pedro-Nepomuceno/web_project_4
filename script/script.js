@@ -97,13 +97,17 @@ function openProfilePopup(editProfile) {
     openModal(editProfile);
     } 
 
-
+const existModal = () =>{
+  const popupInput = document.querySelectorAll(".popup__input");
+}
+    
 function openModal(modal){
     modal.classList.add("popup_open");
 }
 
 function closeModal(modal){
     modal.classList.remove("popup_open");
+    
 }
 
 
