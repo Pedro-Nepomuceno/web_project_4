@@ -30,17 +30,20 @@ const hideInputError = (formElement, inputElement) => {
 }; 
 
 
- function toggleButtonState(inputList,formElement) {
+ function toggleButtonState() {
     const popupSubmit = document.querySelector('.popup__submit');
+    const checkButton = {checkNameProfile: document.querySelector("#name"),
+    checkTitleProfile: document.querySelector("#title")
+}
 
-     if(inputList.some(inputElement => !inputElement.validity.valid)){
+     if(checkButton.checkNameProfile.validity.valid  && checkButton.checkTitleProfile.validity.valid){
         
-        popupSubmit.disabled =true;
+        popupSubmit.disabled =false;
 
      }
 
      else{
-        popupSubmit.disabled =false;
+        popupSubmit.disabled =true;
      }
 
  }
@@ -52,7 +55,7 @@ const setEventListeners = (inputElement) => {
     inputList.forEach((inputElement) =>{
         inputElement.addEventListener('input', () =>{
             isValid(formElement,inputElement);
-            toggleButtonState(inputList,inputElement)
+            toggleButtonState()
           
         } )
     })
