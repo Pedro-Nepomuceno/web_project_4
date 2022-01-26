@@ -23,3 +23,8 @@
 .popup__submit:hover {
   opacity: 0.8;
 }
+
+.popup__submit:disabled {
+  cursor: default;
+  opacity: 0.2;
+}

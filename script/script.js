@@ -4,7 +4,6 @@
 const editProfile = document.querySelector('.popup_type-edit_profile');
 const editModalProfile = document.querySelector('.popup__form');
 const closeModalProfile = document.querySelectorAll('.popup__close');
-const popupSubmit = document.querySelector('.popup__submit');
 const editButton = document.querySelector('.profile__edit');
 const inputName = document.querySelector('.popup__input_type_name');
 const inputDescription = document.querySelector('.popup__input_type_description');
@@ -12,8 +11,8 @@ const profileName = document.querySelector('.profile__name');
 const profileText = document.querySelector('.profile__text');
 const addPhoto = document.querySelector('.add');
 const buttonAdd = document.querySelector('.profile__plus');
-const addInputName = document.querySelector('#title-input');
-const addInputDescription = document.querySelector('#url-input');
+const addInputName = document.querySelector('#title');
+const addInputDescription = document.querySelector('#url');
 const addCardModal = document.querySelector('#add-popup');
 const cardTemplate = document.querySelector("#elements-template").content;
 const photoGallery = document.querySelector('.elements');
@@ -92,13 +91,13 @@ function renderCard(data){
 
 
 function openProfilePopup(editProfile) { 
-    inputName.value = profileName.textContent;
-    inputDescription.value = profileText.textContent;
+    
     openModal(editProfile);
     } 
 
 const existModal = () =>{
-  const popupInput = document.querySelectorAll(".popup__input");
+ closeModal(editProfile);
+ closeModal(addCardModal);
 }
     
 function openModal(modal){
@@ -110,14 +109,17 @@ function closeModal(modal){
     
 }
 
-
+function handleMouseClick(event) {
+  if (event.target.classList.contains("popup_open")) {
+    closeModal(event.target);
+  }
+}
 
 
 function editFormSubmit (evt){
 evt.preventDefault();
  profileName.textContent = inputName.value;
  profileText.textContent = inputDescription.value;
-
  closeModal(editProfile);
 }
 
@@ -129,11 +131,19 @@ function addFormSubmit (evt){
      closeModal(addCardModal);
     }
 
-// event listener
 
+document.addEventListener('keydown', (evt) => {
+      if(evt.key === "Escape"){
+        existModal()
+      }
+    } )
+
+  
+document.addEventListener('click',handleMouseClick)
 addCardModal.addEventListener('submit', addFormSubmit);
 editModalProfile.addEventListener('submit', editFormSubmit);
-editButton.addEventListener('click', () => {openProfilePopup(editProfile)});
+editButton.addEventListener('click', () => {
+  openProfilePopup(editProfile)});
 buttonAdd.addEventListener('click', ()=> {openModal(addCardModal)});
 closeModalProfile.forEach( (modalClose) => {
 modalClose.addEventListener('click', (e) => { const popup = modalClose.closest('.popup');
