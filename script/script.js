@@ -30,8 +30,8 @@ const photoArray = [
         url: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
       },
       {
-        title: "Bald Mountains",
-        url: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
+        title: "Lago di Braies",
+        url: "https://code.s3.yandex.net/web-code/lago.jpg"
       },
       {
         title: "Latemar",
@@ -42,8 +42,8 @@ const photoArray = [
         url: "https://code.s3.yandex.net/web-code/vanoise.jpg"
       },
       {
-        title: "Lago di Braies",
-        url: "https://code.s3.yandex.net/web-code/lago.jpg"
+        title: "Rio de Janeiro",
+        url: "https://images.unsplash.com/photo-1544989164-31dc3c645987?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
       },
   
 ]
@@ -121,6 +121,7 @@ evt.preventDefault();
  profileName.textContent = inputName.value;
  profileText.textContent = inputDescription.value;
  closeModal(editProfile);
+ resetForm(evt.target,{submitButtonSelector: ".popup__submit",})
 }
 
 function addFormSubmit (evt){
@@ -129,8 +130,9 @@ function addFormSubmit (evt){
     renderCard(element);
     
      closeModal(addCardModal);
+     resetForm(evt.target,{submitButtonSelector: ".popup__submit"});
     }
-
+   
 
 document.addEventListener('keydown', (evt) => {
       if(evt.key === "Escape"){
