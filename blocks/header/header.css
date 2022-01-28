@@ -7,6 +7,13 @@
   max-width: 880px;
   margin: 119px auto 0;
 }
+
+@media screen and (max-width: 880px) {
+  .header {
+    padding-left: 50px;
+  }
+}
+
 @media screen and (max-width: 544px) {
   .header {
     margin-top: 28px;

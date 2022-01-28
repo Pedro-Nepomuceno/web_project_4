@@ -1,5 +1,5 @@
 
-const isValid = (inputEl,formEl,settings) => {
+const validateFormField = (inputEl,formEl,settings) => {
     const errorElement = formEl.querySelector(`#${inputEl.id}-error`);
     
   if(hasInvalidInput (inputEl)){
@@ -10,18 +10,13 @@ const isValid = (inputEl,formEl,settings) => {
   }
   
 }
+
 function hasInvalidInput (inputEl){
     return !inputEl.validity.valid
 }
 
-function toggleButtonState (inputList, button,settings){
-    if(inputList.some(hasInvalidInput)){
-        button.disabled= true;
-    }
-    else{
-        button.disabled= false;
-
-    }
+function toggleButtonState (inputList, button){
+    button.disabled = inputList.some(hasInvalidInput)
 }
 
 
@@ -45,7 +40,7 @@ const inputList = Array.from(formEl.querySelectorAll(settings.inputSelector));
 const button = formEl.querySelector(settings.submitButtonSelector);
 inputList.forEach((inputEl) =>{
     inputEl.addEventListener('input', ()=>{
-     isValid(inputEl,formEl,settings) ;
+     validateFormField(inputEl,formEl,settings) ;
      toggleButtonState (inputList, button,settings);
     })
 } )

@@ -1,9 +1,9 @@
 
 // toggle elements 
-
+const popup = document.querySelectorAll('.popup');
 const editProfile = document.querySelector('.popup_type-edit_profile');
 const editModalProfile = document.querySelector('.popup__form');
-const closeModalProfile = document.querySelectorAll('.popup__close');
+const closePopupButtons = document.querySelectorAll('.popup__close');
 const editButton = document.querySelector('.profile__edit');
 const inputName = document.querySelector('.popup__input_type_name');
 const inputDescription = document.querySelector('.popup__input_type_description');
@@ -16,7 +16,7 @@ const addInputDescription = document.querySelector('#url');
 const addCardModal = document.querySelector('#add-popup');
 const cardTemplate = document.querySelector("#elements-template").content;
 const photoGallery = document.querySelector('.elements');
-const createPhoto = document.querySelector('.popup__submit_create');
+const createPhotoButton = document.querySelector('.popup__submit_create');
 const imageModal = document.querySelector('#photo');
 
 // Array add photos to webpage
@@ -49,13 +49,17 @@ const photoArray = [
 ]
 // function to add cloned template to page 
 function createCard (data) {
-    const userElement = cardTemplate.querySelector('.elements__photo').cloneNode(true);
-   const imageElement = userElement.querySelector(".elements__pic");
-   const elementTitle = userElement.querySelector(".elements__info-text");
-   const likeButton = userElement.querySelector('.elements__info-button');
-   const deletePhoto = userElement.querySelector('.elements__delete');
-   deletePhoto.addEventListener("click", () =>{userElement.remove()} );
-   likeButton.addEventListener("click", () => {likeButton.classList.toggle("elements__info-button_active")});
+    const cardElement = cardTemplate.querySelector('.elements__photo').cloneNode(true);
+   const imageElement = cardElement.querySelector(".elements__pic");
+   const elementTitle = cardElement.querySelector(".elements__info-text");
+   const likeButton = cardElement.querySelector('.elements__info-button');
+   const deleteButton = cardElement.querySelector('.elements__delete');
+   deleteButton.addEventListener("click", () =>{
+     cardElement.remove()
+    });
+   likeButton.addEventListener("click", () => {
+     likeButton.classList.toggle("elements__info-button_active")
+    });
     elementTitle.textContent = data.title;
     imageElement.src = data.url;
     imageElement.alt = data.title
@@ -70,7 +74,7 @@ function createCard (data) {
     })
     
 
-    return userElement;
+    return cardElement;
 }
 
 function addCard(element){
@@ -80,25 +84,19 @@ function renderCard(data){
     addCard(createCard(data))
 }
 
- photoArray.forEach((element) =>{
-    renderCard(element);
-
-} )
-
+ photoArray.forEach(renderCard)
 
 
 // functions
 
 
 function openProfilePopup(editProfile) { 
-    
-    openModal(editProfile);
-    } 
+  inputName.value = profileName.textContent;
+  inputDescription.value = profileText.textContent;
+   openModal(editProfile);
+} 
 
-const existModal = () =>{
- closeModal(editProfile);
- closeModal(addCardModal);
-}
+
     
 function openModal(modal){
     modal.classList.add("popup_open");
@@ -116,7 +114,7 @@ function handleMouseClick(event) {
 }
 
 
-function editFormSubmit (evt){
+function handleEditProfileFormSubmit (evt){
 evt.preventDefault();
  profileName.textContent = inputName.value;
  profileText.textContent = inputDescription.value;
@@ -132,24 +130,28 @@ function addFormSubmit (evt){
      closeModal(addCardModal);
      resetForm(evt.target,{submitButtonSelector: ".popup__submit"});
     }
-   
 
-document.addEventListener('keydown', (evt) => {
-      if(evt.key === "Escape"){
-        existModal()
-      }
-    } )
+function handleEscPopup (evt) {
+  if(evt.key === "Escape"){
+    closeModal(document.querySelector('.popup_open'))
+  }
+}
 
   
-document.addEventListener('click',handleMouseClick)
+document.addEventListener('mousedown',handleMouseClick)
 addCardModal.addEventListener('submit', addFormSubmit);
-editModalProfile.addEventListener('submit', editFormSubmit);
+editModalProfile.addEventListener('submit', handleEditProfileFormSubmit);
 editButton.addEventListener('click', () => {
-  openProfilePopup(editProfile)});
-buttonAdd.addEventListener('click', ()=> {openModal(addCardModal)});
-closeModalProfile.forEach( (modalClose) => {
+  openProfilePopup(editProfile);
+  document.addEventListener('keydown', handleEscPopup);
+});
+buttonAdd.addEventListener('click', ()=> {openModal(addCardModal)
+  document.addEventListener('keydown', handleEscPopup)
+});
+closePopupButtons.forEach( (modalClose) => {
 modalClose.addEventListener('click', (e) => { const popup = modalClose.closest('.popup');
 closeModal(popup);
+document.removeEventListener('keydown', handleEscPopup)
 });
 });
 
