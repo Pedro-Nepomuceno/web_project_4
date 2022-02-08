@@ -15,7 +15,7 @@ const buttonAdd = document.querySelector(".profile__plus");
 const addInputName = document.querySelector("#title");
 const addInputDescription = document.querySelector("#url");
 const addCardModal = document.querySelector("#add-popup");
-const cardTemplate = document.querySelector("#elements-template").content;
+// const cardTemplate = document.querySelector("#elements-template").content;
 const photoGallery = document.querySelector(".elements");
 const createPhotoButton = document.querySelector(".popup__submit_create");
 const imageModal = document.querySelector("#photo");
@@ -48,43 +48,85 @@ const photoArray = [
 	},
 ];
 // function to add cloned template to page
-function createCard(data) {
-	const cardElement = cardTemplate
-		.querySelector(".elements__photo")
-		.cloneNode(true);
-	const imageElement = cardElement.querySelector(".elements__pic");
-	const elementTitle = cardElement.querySelector(".elements__info-text");
-	const likeButton = cardElement.querySelector(".elements__info-button");
-	const deleteButton = cardElement.querySelector(".elements__delete");
-	deleteButton.addEventListener("click", () => {
-		cardElement.remove();
-	});
-	likeButton.addEventListener("click", () => {
-		likeButton.classList.toggle("elements__info-button_active");
-	});
-	elementTitle.textContent = data.title;
-	imageElement.src = data.url;
-	imageElement.alt = data.title;
-	imageElement.addEventListener("click", () => {
-		const popupImage = document.querySelector(".popup__image");
-		const popupTitle = document.querySelector(".popup__caption");
-		popupTitle.textContent = data.title;
-		popupImage.src = data.url;
-		popupImage.alt = data.title;
-		openModal(imageModal);
-	});
 
-	return cardElement;
-}
+class Card {
+	constructor(data, cardSelector) {
+		this._title = data.title;
+		this._image = data.url;
+		this._cardSelector = cardSelector;
+	}
 
-function addCard(element) {
-	photoGallery.prepend(element);
-}
-function renderCard(data) {
-	addCard(createCard(data));
-}
+	_getTemplate() {
+		const cardElement = document
+			.querySelector("#elements-template")
+			.content.querySelector(".elements__photo")
+			.cloneNode(true);
 
-photoArray.forEach(renderCard);
+		return cardElement;
+	}
+	generateCard() {
+		this._element = this._getTemplate();
+		this._element.querySelector(".elements__pic").src = this._image;
+		this._element.querySelector(".elements__pic").alt = this._title;
+		this._element.querySelector(".elements__info-text").textContent =
+			this._title;
+		this._element
+			.querySelector(".elements__info-button")
+			.addEventListener("click", () => {
+				this._element.classList.toggle("elements__info-button_active");
+			});
+		this._element
+			.querySelector(".elements__delete")
+			.addEventListener("click", () => {
+				this._element.remove();
+			});
+		return this._element;
+	}
+}
+photoArray.forEach((data) => {
+	const card = new Card(data, "#elements-template");
+	console.log(card);
+	const cardElement = card.generateCard();
+	photoGallery.prepend(cardElement);
+});
+
+// function createCard(data) {
+// 	const cardElementement = cardTemplate
+// 		.querySelector(".elements__photo")
+// 		.cloneNode(true);
+// 	const imageElement = cardElement.querySelector(".elements__pic");
+// 	const elementTitle = cardElement.querySelector(".elements__info-text");
+// 	const likeButton = cardElement.querySelector(".elements__info-button");
+// 	const deleteButton = cardElement.querySelector(".elements__delete");
+// 	deleteButton.addEventListener("click", () => {
+// 		cardElement.remove();
+// 	});
+// 	likeButton.addEventListener("click", () => {
+// 		likeButton.classList.toggle("elements__info-button_active");
+// 	});
+// 	elementTitle.textContent = data.title;
+// 	imageElement.src = data.url;
+// 	imageElement.alt = data.title;
+// 	imageElement.addEventListener("click", () => {
+// 		const popupImage = document.querySelector(".popup__image");
+// 		const popupTitle = document.querySelector(".popup__caption");
+// 		popupTitle.textContent = data.title;
+// 		popupImage.src = data.url;
+// 		popupImage.alt = data.title;
+// 		openModal(imageModal);
+// 	});
+
+// 	return cardElement;
+// }
+
+// function addCard(element) {
+// 	photoGallery.prepend(element);
+// }
+// function renderCard(data) {
+// 	addCard(createCard(data));
+// }
+
+// photoArray.forEach(renderCard);
 
 // functions
 
