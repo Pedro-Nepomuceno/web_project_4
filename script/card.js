@@ -1,3 +1,4 @@
+import { openModal } from "./utils.js";
 const photoArray = [
 	{
 		title: "Yosemite Valley",
@@ -49,6 +50,7 @@ export class Card {
 		this._element
 			.querySelector(".elements__pic")
 			.addEventListener("click", () => {
+				const imageModal = document.querySelector("#photo");
 				const popupImage = document.querySelector(".popup__image");
 				const popupTitle = document.querySelector(".popup__caption");
 				popupTitle.textContent = this._title;
@@ -72,7 +74,6 @@ export class Card {
 photoArray.forEach((data) => {
 	const photoGallery = document.querySelector(".elements");
 	const card = new Card(data, "#elements-template");
-	console.log(card);
 	const cardElement = card.generateCard();
 	photoGallery.prepend(cardElement);
 });

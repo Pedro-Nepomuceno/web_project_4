@@ -1,3 +1,30 @@
+// const popup = document.querySelectorAll(".popup");
+const editProfile = document.querySelector(".popup_type-edit_profile");
+// const editModalProfile = document.querySelector(".popup__form");
+const closeModalButton = document.querySelectorAll(".popup__close");
+// const createPhotoButton = document.querySelector(".popup__submit_create");
+// const imageModal = document.querySelector("#photo");
+const addCardModal = document.querySelector("#add-popup");
+const editButton = document.querySelector(".profile__edit");
+const buttonAdd = document.querySelector(".profile__plus");
+
+const popup = document.querySelectorAll(".popup");
+const editProfile = document.querySelector(".popup_type-edit_profile");
+const editModalProfile = document.querySelector(".popup__form");
+const closeModalButton = document.querySelectorAll(".popup__close");
+export const inputName = document.querySelector(".popup__input_type_name");
+export const inputDescription = document.querySelector(
+	".popup__input_type_description"
+);
+export const profileName = document.querySelector(".profile__name");
+export const profileText = document.querySelector(".profile__text");
+const addPhoto = document.querySelector(".add");
+const addInputName = document.querySelector("#title");
+const addInputDescription = document.querySelector("#url");
+const addCardModal = document.querySelector("#add-popup");
+const createPhotoButton = document.querySelector(".popup__submit_create");
+const imageModal = document.querySelector("#photo");
+
 const validateFormField = (inputEl, formEl, settings) => {
 	const errorElement = formEl.querySelector(`#${inputEl.id}-error`);
 
@@ -48,13 +75,11 @@ function enableValidation(settings) {
 		setEventListeners(formEl, settings);
 	});
 }
-
-function resetForm(formEl, settings) {
-	const buttonEl = formEl.querySelector(settings.submitButtonSelector);
-	buttonEl.disabled = true;
-	formEl.reset();
-}
-
+hasinvalidInput = (inputlist) => {
+	return inputlist.some((inputEl) => {
+		return !inputEl.validity.valid;
+	});
+};
 enableValidation({
 	formSelector: ".popup__form",
 	inputSelector: ".popup__input",
