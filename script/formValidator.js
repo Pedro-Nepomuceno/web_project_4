@@ -1,4 +1,4 @@
-class formValidator {
+export class formValidator {
 	constructor(settings) {
 		this._inputSelector = settings.inputSelector;
 		this._submitButtonSelector = settings.submitButtonSelector;
@@ -27,8 +27,6 @@ class formValidator {
 	}
 
 	_validateFormField(inputEl) {
-		const errorElement = document.querySelector(`#${inputEl.id}-error`);
-
 		if (this._hasInvalidInput(inputEl)) {
 			this._showInputError(inputEl);
 		} else {
@@ -40,12 +38,10 @@ class formValidator {
 		button.disabled = inputList.some(this._hasInvalidInput);
 	}
 
-	_setEventListeners() {
-		const inputList = Array.from(
-			this._formEl.querySelectorAll(this._inputSelector)
-		);
-		console.log(inputList);
-		const button = document.querySelector(this._submitButtonSelector);
+	_setEventListeners(formEl) {
+		const inputList = Array.from(formEl.querySelectorAll(this._inputSelector));
+
+		const button = formEl.querySelector(this._submitButtonSelector);
 		inputList.forEach((inputEl) => {
 			inputEl.addEventListener("input", () => {
 				this._validateFormField(inputEl);
@@ -60,24 +56,10 @@ class formValidator {
 			formEl.addEventListener("submit", (evt) => {
 				evt.preventDefault();
 			});
+			this._setEventListeners(formEl);
 		});
-
-		this._setEventListeners();
 	}
 }
-
-const formSettings = {
-	formEl: ".popup__form",
-	inputSelector: ".popup__input",
-	submitButtonSelector: ".popup__submit",
-	inactiveButtonClass: "popup__button_disabled",
-	inputErrorClass: "popup__input-error",
-	errorClass: "popup__error_active",
-};
-
-const addFormValidator = new formValidator(formSettings);
-
-addFormValidator.enableValidation();
 
 export function resetForm(formEl, settings) {
 	const buttonEl = formEl.querySelector(settings.submitButtonSelector);
