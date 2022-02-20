@@ -5,7 +5,7 @@ export class formValidator {
 		this._inactiveButtonClass = settings.inactiveButtonClass;
 		this._inputErrorClass = settings.inputErrorClass;
 		this._errorClass = settings.errorClass;
-		this._formEl = settings.formEl;
+		this._formSelector = settings.formSelector;
 	}
 
 	_hasInvalidInput(inputEl) {
@@ -38,10 +38,12 @@ export class formValidator {
 		button.disabled = inputList.some(this._hasInvalidInput);
 	}
 
-	_setEventListeners(formEl) {
-		const inputList = Array.from(formEl.querySelectorAll(this._inputSelector));
+	_setEventListeners(formSelector) {
+		const inputList = Array.from(
+			formSelector.querySelectorAll(this._inputSelector)
+		);
 
-		const button = formEl.querySelector(this._submitButtonSelector);
+		const button = formSelector.querySelector(this._submitButtonSelector);
 		inputList.forEach((inputEl) => {
 			inputEl.addEventListener("input", () => {
 				this._validateFormField(inputEl);
@@ -51,18 +53,17 @@ export class formValidator {
 	}
 
 	enableValidation() {
-		const formList = document.querySelectorAll(this._formEl);
-		formList.forEach((formEl) => {
-			formEl.addEventListener("submit", (evt) => {
+		document
+			.querySelector(this._formSelector)
+			.addEventListener("submit", (evt) => {
 				evt.preventDefault();
+				this._setEventListeners(this._formSelector);
 			});
-			this._setEventListeners(formEl);
-		});
 	}
 }
 
-export function resetForm(formEl, settings) {
-	const buttonEl = formEl.querySelector(settings.submitButtonSelector);
+export function resetForm(formSelector, settings) {
+	const buttonEl = formSelector.querySelector(settings.submitButtonSelector);
 	buttonEl.disabled = true;
-	formEl.reset();
+	formSelector.reset();
 }

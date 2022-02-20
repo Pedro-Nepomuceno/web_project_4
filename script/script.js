@@ -68,7 +68,7 @@ photoArray.forEach((data) => {
 });
 
 const formSettings = {
-	formEl: ".popup__form",
+	formSelector: ".popup__form",
 	inputSelector: ".popup__input",
 	submitButtonSelector: ".popup__submit",
 	inactiveButtonClass: "popup__button_disabled",
