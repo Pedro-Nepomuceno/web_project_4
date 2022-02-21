@@ -1,6 +1,6 @@
 import { Card } from "./card.js";
 import { closeModal } from "./utils.js";
-import { formValidator, resetForm } from "./formValidator.js";
+import { formValidator } from "./formValidator.js";
 // toggle elements
 const editProfile = document.querySelector(".popup_type-edit_profile");
 const editModalProfile = document.querySelector(".popup__form");

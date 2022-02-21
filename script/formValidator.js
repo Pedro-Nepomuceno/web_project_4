@@ -53,6 +53,14 @@ export class formValidator {
 		});
 	}
 
+	resetForm() {
+		const buttonEl = this._formSelector.querySelector(
+			this._submitButtonSelector
+		);
+		buttonEl.disabled = true;
+		this._formSelector.reset();
+	}
+
 	enableValidation() {
 		document
 			.querySelector(this._validator)
@@ -60,11 +68,6 @@ export class formValidator {
 				evt.preventDefault();
 			});
 		this._setEventListeners();
+		this._resetForm();
 	}
-}
-
-export function resetForm(formSelector, settings) {
-	const buttonEl = formSelector.querySelector(settings.submitButtonSelector);
-	buttonEl.disabled = true;
-	formSelector.reset();
 }
