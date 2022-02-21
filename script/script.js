@@ -75,7 +75,12 @@ const formSettings = {
 	inputErrorClass: "popup__input-error",
 	errorClass: "popup__error_active",
 };
+const addForm = "#add-form";
+const profileForm = "#profile-form";
 
-const addFormValidator = new formValidator(formSettings);
+const addFormValidator = new formValidator(formSettings, addForm);
+const profileFormValidator = new formValidator(formSettings, profileForm);
+
+profileFormValidator.enableValidation();
 
 addFormValidator.enableValidation();
