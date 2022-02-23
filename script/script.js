@@ -1,7 +1,7 @@
 import { Card } from "./card.js";
-import { closeModal } from "./utils.js";
+import { closeModal, openModal, handleMouseClick } from "./utils.js";
 import { formValidator } from "./formValidator.js";
-// toggle elements
+
 const editProfile = document.querySelector(".popup_type-edit_profile");
 const editModalProfile = document.querySelector(".popup__form");
 export const inputName = document.querySelector(".popup__input_type_name");
@@ -14,22 +14,37 @@ const addInputName = document.querySelector("#title");
 const addInputDescription = document.querySelector("#url");
 const addCardModal = document.querySelector("#add-popup");
 
+const closeModalButton = document.querySelectorAll(".popup__close");
+const editButton = document.querySelector(".profile__edit");
+const buttonAdd = document.querySelector(".profile__plus");
+
+function openProfilePopup(editProfile) {
+	inputName.value = profileName.textContent;
+	inputDescription.value = profileText.textContent;
+	openModal(editProfile);
+}
+
 function handleEditProfileFormSubmit(evt) {
 	evt.preventDefault();
 	profileName.textContent = inputName.value;
 	profileText.textContent = inputDescription.value;
 	closeModal(editProfile);
-	resetForm(evt.target, { submitButtonSelector: ".popup__submit" });
+	profileFormValidator.resetForm();
+}
+
+function createNewElement(element) {
+	const newCard = new Card(element, "#elements-template");
+	const cardElement = newCard.generateCard();
+	return cardElement;
 }
 
 function addFormSubmit(evt) {
 	evt.preventDefault();
 	const element = { url: addInputDescription.value, title: addInputName.value };
-	const newElement = new Card(element, "#elements-template");
-	const cardElement = newElement.generateCard();
-	document.querySelector(".elements").prepend(cardElement);
+
+	document.querySelector(".elements").prepend(createNewElement(element));
 	closeModal(addCardModal);
-	resetForm(evt.target, { submitButtonSelector: ".popup__submit" });
+	addFormValidator.resetForm();
 }
 addCardModal.addEventListener("submit", addFormSubmit);
 editModalProfile.addEventListener("submit", handleEditProfileFormSubmit);
@@ -62,9 +77,7 @@ const photoArray = [
 ];
 photoArray.forEach((data) => {
 	const photoGallery = document.querySelector(".elements");
-	const card = new Card(data, "#elements-template");
-	const cardElement = card.generateCard();
-	photoGallery.prepend(cardElement);
+	photoGallery.prepend(createNewElement(data));
 });
 
 const formSettings = {
@@ -84,3 +97,18 @@ const profileFormValidator = new formValidator(formSettings, profileForm);
 profileFormValidator.enableValidation();
 
 addFormValidator.enableValidation();
+
+document.addEventListener("mousedown", handleMouseClick);
+editButton.addEventListener("click", () => {
+	openProfilePopup(editProfile);
+});
+buttonAdd.addEventListener("click", () => {
+	const addCardModal = document.querySelector("#add-popup");
+	openModal(addCardModal);
+});
+closeModalButton.forEach((modalClose) => {
+	modalClose.addEventListener("click", (e) => {
+		const popup = modalClose.closest(".popup");
+		closeModal(popup);
+	});
+});
