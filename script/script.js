@@ -1,6 +1,6 @@
 import { Card } from "./card.js";
 import { closeModal, openModal, handleMouseClick } from "./utils.js";
-import { formValidator } from "./formValidator.js";
+import { FormValidator } from "./formValidator.js";
 
 const editProfile = document.querySelector(".popup_type-edit_profile");
 const editModalProfile = document.querySelector(".popup__form");
@@ -38,7 +38,7 @@ function createNewElement(element) {
 	return cardElement;
 }
 
-function addFormSubmit(evt) {
+function handleAddFormSubmit(evt) {
 	evt.preventDefault();
 	const element = { url: addInputDescription.value, title: addInputName.value };
 
@@ -46,7 +46,7 @@ function addFormSubmit(evt) {
 	closeModal(addCardModal);
 	addFormValidator.resetForm();
 }
-addCardModal.addEventListener("submit", addFormSubmit);
+addCardModal.addEventListener("submit", handleAddFormSubmit);
 editModalProfile.addEventListener("submit", handleEditProfileFormSubmit);
 
 const photoArray = [
@@ -88,11 +88,14 @@ const formSettings = {
 	inputErrorClass: "popup__input-error",
 	errorClass: "popup__error_active",
 };
-const addForm = "#add-form";
-const profileForm = "#profile-form";
+const addFormSelector = "#add-form";
+const addProfileFormSelector = "#profile-form";
 
-const addFormValidator = new formValidator(formSettings, addForm);
-const profileFormValidator = new formValidator(formSettings, profileForm);
+const addFormValidator = new FormValidator(formSettings, addFormSelector);
+const profileFormValidator = new FormValidator(
+	formSettings,
+	addProfileFormSelector
+);
 
 profileFormValidator.enableValidation();
 
