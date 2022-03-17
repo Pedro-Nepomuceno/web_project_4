@@ -91,25 +91,20 @@ const openImagePopup = new PopupWithImage(imageModal);
 const createNewElement = new Section(
 	{
 		items: photoArray,
-		renderer: (items) => {
-			this._items.forEach((item) => {
-				const element = new Card(item, "#elements-template");
-				const newCard = element.generateCard();
-				createNewElement.addItem(newCard);
-				newCard.addEventListener("click", () => {
-					openImagePopup.open(item);
-				});
-			});
+		renderer: (item) => {
+			const element = new Card(item, "#elements-template", handleCardClick);
+			const newCard = element.generateCard();
+			createNewElement.addItem(newCard);
 		},
 	},
 	photoGallery
 );
 createNewElement.renderer();
 openImagePopup.setEventListeners();
-// const openImagePopup = new PopupWithImage(imageModal);
-// item.addEventListener("click", () => {
-// 	openImagePopup.open({ url: item.src, title: photoElement.alt });
-// });
+
+function handleCardClick(data) {
+	openImagePopup.open(data);
+}
 
 const formSettings = {
 	formSelector: ".popup__form",

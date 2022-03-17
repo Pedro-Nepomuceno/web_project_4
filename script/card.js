@@ -1,10 +1,12 @@
 import { openModal } from "./utils.js";
+import { PopupWithImage } from "./popUpWithImage.js";
 
 export class Card {
-	constructor(data, cardSelector) {
+	constructor(data, cardSelector, handleCardClick) {
 		this._title = data.title;
 		this._image = data.url;
 		this._cardSelector = cardSelector;
+		this._handleCardClick = handleCardClick;
 	}
 
 	_getTemplate() {
@@ -21,17 +23,7 @@ export class Card {
 		this._element.querySelector(".elements__pic").alt = this._title;
 		this._element.querySelector(".elements__info-text").textContent =
 			this._title;
-		// this._element
-		// 	.querySelector(".elements__pic")
-		// 	.addEventListener("click", () => {
-		// 		const imageModal = document.querySelector("#photo");
-		// 		const popupImage = document.querySelector(".popup__image");
-		// 		const popupTitle = document.querySelector(".popup__caption");
-		// 		popupTitle.textContent = this._title;
-		// 		popupImage.src = this._image;
-		// 		popupImage.alt = this._title;
-		// 		openModal(imageModal);
-		// 	});
+
 		this._element
 			.querySelector(".elements__info-button")
 			.addEventListener("click", (evt) => {
@@ -41,6 +33,14 @@ export class Card {
 			.querySelector(".elements__delete")
 			.addEventListener("click", () => {
 				this._element.remove();
+			});
+		this._element
+			.querySelector(".elements__pic")
+			.addEventListener("click", () => {
+				this._handleCardClick({
+					title: this._title,
+					url: this._image,
+				});
 			});
 		return this._element;
 	}

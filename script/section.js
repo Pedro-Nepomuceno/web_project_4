@@ -9,9 +9,7 @@ export class Section {
 
 	renderer() {
 		this._items.forEach((element) => {
-			const newCard = new Card(element, this._containerSelector);
-			const newElement = newCard.generateCard();
-			this.addItem(newElement);
+			this._renderer(element);
 		});
 	}
 	addItem(element) {
