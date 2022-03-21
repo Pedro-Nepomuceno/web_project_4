@@ -4,6 +4,7 @@ import { FormValidator } from "./formValidator.js";
 import { Section } from "./section.js";
 import { Popup } from "./popup.js";
 import { PopupWithImage } from "./popUpWithImage.js";
+import { PopupWithForm } from "./popupWithForm.js";
 
 const editProfile = ".popup_type-edit_profile";
 const editModalProfile = document.querySelector(".popup__form");
@@ -23,6 +24,7 @@ const addCardModal = "#add-popup";
 const photoGallery = ".elements";
 const photoElement = document.querySelector(".elements__pic");
 const imageModal = "#photo";
+const popupInput = document.querySelector(".popup__input");
 
 const newPopupPhoto = new Popup(addCardModal);
 newPopupPhoto.setEventListeners();
@@ -36,11 +38,21 @@ editButton.addEventListener("click", () => {
 	newPopupProfile.open();
 });
 
-function openProfilePopup(editProfile) {
-	inputName.value = profileName.textContent;
-	inputDescription.value = profileText.textContent;
-	openModal(editProfile);
+const handleAddFormSubmit = new PopupWithForm(addCardModal, {
+	handlePopupWithForm: () => {
+		renderCard(
+			{ image: addInputDescription.value, title: addInputName.value },
+			createNewElement
+		);
+	},
+});
+
+function renderCard(item, container) {
+	const element = new Card(item, "#elements-template", handleCardClick);
+	const newCard = element.generateCard();
+	container.addItem(newCard);
 }
+handleAddFormSubmit.setEventListeners();
 
 function handleEditProfileFormSubmit(evt) {
 	evt.preventDefault();
@@ -50,15 +62,6 @@ function handleEditProfileFormSubmit(evt) {
 	profileFormValidator.resetForm();
 }
 
-function handleAddFormSubmit(evt) {
-	evt.preventDefault();
-	const element = { url: addInputDescription.value, title: addInputName.value };
-
-	document.querySelector(".elements").prepend(createNewElement(element));
-	closeModal(addCardModal);
-	addFormValidator.resetForm();
-}
-// addCardModal.addEventListener("submit", handleAddFormSubmit);
 editModalProfile.addEventListener("submit", handleEditProfileFormSubmit);
 
 const photoArray = [
@@ -141,3 +144,18 @@ addFormValidator.enableValidation();
 // 		closeModal(popup);
 // 	});
 // });
+// function openProfilePopup(editProfile) {
+// 	inputName.value = profileName.textContent;
+// 	inputDescription.value = profileText.textContent;
+// 	openModal(editProfile);
+// }
+
+// function handleAddFormSubmit(evt) {
+// 	evt.preventDefault();
+// 	const element = { url: addInputDescription.value, title: addInputName.value };
+
+// 	document.querySelector(".elements").prepend(createNewElement(element));
+// 	closeModal(addCardModal);
+// 	addFormValidator.resetForm();
+// }
+// addCardModal.addEventListener("submit", handleAddFormSubmit);
