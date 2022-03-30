@@ -1,4 +1,4 @@
-import { closeModalButton } from "../index.js";
+import { closeModalButton } from "../pages/index.js";
 export class Popup {
 	constructor(popupSelector) {
 		this._popupSelector = document.querySelector(popupSelector);

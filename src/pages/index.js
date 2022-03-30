@@ -1,19 +1,20 @@
-import { Card } from "./card.js";
-import { closeModal, openModal, handleMouseClick } from "./utils.js";
-import { FormValidator } from "./formValidator.js";
-import { Section } from "./section.js";
-import { Popup } from "./popup.js";
-import { PopupWithImage } from "./popUpWithImage.js";
-import { PopupWithForm } from "./popupWithForm.js";
+import "../pages/index.css";
+6;
+import { Card } from "../components/card.js";
+import { FormValidator } from "../components/formValidator.js";
+import { Section } from "../components/section.js";
+import { Popup } from "../components/popup.js";
+import { PopupWithImage } from "../components/popUpWithImage.js";
+import { PopupWithForm } from "../components/popupWithForm.js";
+import { UserInfo } from "../components/userInfo.js";
 
 const editProfile = ".popup_type-edit_profile";
-const editModalProfile = document.querySelector(".popup__form");
 export const inputName = document.querySelector(".popup__input_type_name");
 export const inputDescription = document.querySelector(
 	".popup__input_type_description"
 );
-export const profileName = document.querySelector(".profile__name");
-export const profileText = document.querySelector(".profile__text");
+export const profileName = ".profile__name";
+export const profileText = ".profile__text";
 const addInputName = document.querySelector("#title");
 const addInputDescription = document.querySelector("#url");
 
@@ -22,9 +23,7 @@ const editButton = document.querySelector(".profile__edit");
 const buttonAdd = document.querySelector(".profile__plus");
 const addCardModal = "#add-popup";
 const photoGallery = ".elements";
-const photoElement = document.querySelector(".elements__pic");
 const imageModal = "#photo";
-const popupInput = document.querySelector(".popup__input");
 
 const newPopupPhoto = new Popup(addCardModal);
 newPopupPhoto.setEventListeners();
@@ -34,14 +33,11 @@ buttonAdd.addEventListener("click", () => {
 
 const newPopupProfile = new Popup(editProfile);
 newPopupProfile.setEventListeners();
-editButton.addEventListener("click", () => {
-	newPopupProfile.open();
-});
 
 const handleAddFormSubmit = new PopupWithForm(addCardModal, {
 	handlePopupWithForm: () => {
 		renderCard(
-			{ image: addInputDescription.value, title: addInputName.value },
+			{ url: addInputDescription.value, title: addInputName.value },
 			createNewElement
 		);
 	},
@@ -52,17 +48,24 @@ function renderCard(item, container) {
 	const newCard = element.generateCard();
 	container.addItem(newCard);
 }
+
 handleAddFormSubmit.setEventListeners();
 
-function handleEditProfileFormSubmit(evt) {
-	evt.preventDefault();
-	profileName.textContent = inputName.value;
-	profileText.textContent = inputDescription.value;
-	closeModal(editProfile);
-	profileFormValidator.resetForm();
-}
+const editProfileForm = new PopupWithForm(editProfile, {
+	handlePopupWithForm: (data) => {
+		handleEditform.setUserInfo(data);
+	},
+});
 
-editModalProfile.addEventListener("submit", handleEditProfileFormSubmit);
+editProfileForm.setEventListeners();
+const handleEditform = new UserInfo({ profileName, profileText });
+
+editButton.addEventListener("click", () => {
+	const currentUserInfo = handleEditform.getUserInfo();
+	inputName.value = currentUserInfo.userName;
+	inputDescription.value = currentUserInfo.userDescription;
+	newPopupProfile.open();
+});
 
 const photoArray = [
 	{
@@ -129,33 +132,3 @@ const profileFormValidator = new FormValidator(
 profileFormValidator.enableValidation();
 
 addFormValidator.enableValidation();
-
-// document.addEventListener("mousedown", handleMouseClick);
-// editButton.addEventListener("click", () => {
-// 	openProfilePopup(editProfile);
-// });
-// buttonAdd.addEventListener("click", () => {
-// 	const addCardModal = document.querySelector("#add-popup");
-// 	openModal(addCardModal);
-// });
-// closeModalButton.forEach((modalClose) => {
-// 	modalClose.addEventListener("click", (e) => {
-// 		const popup = modalClose.closest(".popup");
-// 		closeModal(popup);
-// 	});
-// });
-// function openProfilePopup(editProfile) {
-// 	inputName.value = profileName.textContent;
-// 	inputDescription.value = profileText.textContent;
-// 	openModal(editProfile);
-// }
-
-// function handleAddFormSubmit(evt) {
-// 	evt.preventDefault();
-// 	const element = { url: addInputDescription.value, title: addInputName.value };
-
-// 	document.querySelector(".elements").prepend(createNewElement(element));
-// 	closeModal(addCardModal);
-// 	addFormValidator.resetForm();
-// }
-// addCardModal.addEventListener("submit", handleAddFormSubmit);
