@@ -1,6 +1,3 @@
-// import { openModal } from "./utils.js";
-// import { PopupWithImage } from "./popUpWithImage.js"
-
 export class Card {
 	constructor(data, cardSelector, handleCardClick) {
 		this._title = data.title;
@@ -17,13 +14,20 @@ export class Card {
 
 		return cardElement;
 	}
+
 	generateCard() {
 		this._element = this._getTemplate();
-		this._element.querySelector(".elements__pic").src = this._image;
-		this._element.querySelector(".elements__pic").alt = this._title;
+		const imageElement = this._element.querySelector(".elements__pic");
+		imageElement.src = this._image;
+		imageElement.alt = this._title;
 		this._element.querySelector(".elements__info-text").textContent =
 			this._title;
 
+		this._setEventListeners();
+
+		return this._element;
+	}
+	_setEventListeners() {
 		this._element
 			.querySelector(".elements__info-button")
 			.addEventListener("click", (evt) => {
@@ -42,6 +46,5 @@ export class Card {
 					url: this._image,
 				});
 			});
-		return this._element;
 	}
 }

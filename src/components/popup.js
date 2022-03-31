@@ -1,13 +1,17 @@
 import { closeModalButton } from "../pages/index.js";
+
 export class Popup {
-	constructor(popupSelector) {
+	constructor(popupSelector, buttonSelector) {
 		this._popupSelector = document.querySelector(popupSelector);
+		this._buttonSelector = this._popupSelector.querySelector(".popup__close");
 	}
 	open() {
 		this._popupSelector.classList.add("popup_open");
+		document.addEventListener("keydown", this._handleEscClose);
 	}
 	close() {
 		this._popupSelector.classList.remove("popup_open");
+		document.removeEventListener("keydown", this._handleEscClose);
 	}
 	_handleEscClose() {
 		document.addEventListener("keydown", (e) => {
@@ -23,12 +27,10 @@ export class Popup {
 			}
 		});
 		this._handleEscClose();
-		closeModalButton.forEach((modalClose) => {
-			modalClose.addEventListener("click", (e) => {
-				e.preventDefault();
-				this.close();
-			});
+
+		this._buttonSelector.addEventListener("click", (e) => {
+			e.preventDefault();
+			this.close();
 		});
 	}
 }
-// ../src/pages/script.js
