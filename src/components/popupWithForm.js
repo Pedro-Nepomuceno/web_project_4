@@ -24,8 +24,5 @@ export class PopupWithForm extends Popup {
 	}
 	close() {
 		super.close();
-		this._popupWithForm.reset();
-		const buttonEl = this._popupWithForm.querySelector(".popup__submit");
-		buttonEl.disabled = true;
 	}
 }

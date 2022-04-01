@@ -49,6 +49,11 @@ export class FormValidator {
 			});
 		});
 	}
+	resetValidation() {
+		const buttonEl = this._element.querySelector(".popup__submit");
+		buttonEl.disabled = true;
+		this._element.reset();
+	}
 
 	enableValidation() {
 		this._element.addEventListener("submit", (evt) => {

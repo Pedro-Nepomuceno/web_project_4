@@ -31,18 +31,20 @@ const buttonAdd = document.querySelector(".profile__plus");
 
 const newPopupPhoto = new Popup(addCardModal);
 newPopupPhoto.setEventListeners();
+
 buttonAdd.addEventListener("click", () => {
+	addFormValidator.resetValidation();
 	newPopupPhoto.open();
 });
 
-const PopupProfile = new Popup(editProfile);
-PopupProfile.setEventListeners();
+const popupProfile = new Popup(editProfile);
+popupProfile.setEventListeners();
 
 const addCardForm = new PopupWithForm(addCardModal, {
 	handleSubmit: () => {
 		renderCard(
 			{ url: addInputDescription.value, title: addInputName.value },
-			createNewElement
+			photosSection
 		);
 	},
 });
@@ -68,20 +70,20 @@ editButton.addEventListener("click", () => {
 	const currentUserInfo = userInfo.getUserInfo();
 	inputName.value = currentUserInfo.userName;
 	inputDescription.value = currentUserInfo.userDescription;
-	PopupProfile.open();
+	popupProfile.open();
 });
 
 const imagePopup = new PopupWithImage(imageModal);
-const createNewElement = new Section(
+const photosSection = new Section(
 	{
 		items: photoArray,
 		renderer: (item) => {
-			renderCard(item, createNewElement);
+			renderCard(item, photosSection);
 		},
 	},
 	photoGallery
 );
-createNewElement.renderer();
+photosSection.renderer();
 imagePopup.setEventListeners();
 
 function handleCardClick(data) {
