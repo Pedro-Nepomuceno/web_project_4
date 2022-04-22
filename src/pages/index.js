@@ -30,6 +30,9 @@ const addInputDescription = document.querySelector("#url");
 export const closeModalButton = document.querySelectorAll(".popup__close");
 const editButton = document.querySelector(".profile__edit");
 const buttonAdd = document.querySelector(".profile__plus");
+const profileAvatar = document.querySelector(".profile__avatar-pic");
+const profileTitle = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__text");
 
 const newPopupPhoto = new Popup(addCardModal);
 
@@ -43,12 +46,7 @@ popupProfile.setEventListeners();
 const addCardForm = new PopupWithForm(addCardModal, {
 	handleSubmit: (data) => {
 		api.addNewCard(data).then((cardData) => {
-			const newElement = new Card(
-				cardData,
-				"#elements-template",
-				handleCardClick
-			).generateCard();
-			photosSection.addItem(newElement);
+			photosSection.addItem(newCard(cardData));
 		});
 	},
 });
@@ -62,17 +60,21 @@ const api = new Api({
 		"Content-Type": "application/json",
 	},
 });
+api.getUserInfo().then((userData) => {
+	profileAvatar.src = userData.avatar;
+	profileTitle.textContent = userData.name;
+	profileDescription.textContent = userData.about;
+});
 
 api.getInitialCards().then((cardData) => {
 	cardData.forEach((card) => {
-		const newElement = new Card(
-			card,
-			"#elements-template",
-			handleCardClick
-		).generateCard();
-		photosSection.addItem(newElement);
+		photosSection.addItem(newCard(card));
 	});
 });
+
+const newCard = function createNewCard(data) {
+	return new Card(data, "#elements-template", handleCardClick).generateCard();
+};
 
 const photosSection = new Section(photoGallery);
 

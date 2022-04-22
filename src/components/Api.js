@@ -3,6 +3,11 @@ export class Api {
 		this.baseUrl = baseUrl;
 		this.headers = headers;
 	}
+	getUserInfo() {
+		return fetch(`${this.baseUrl}/users/me`, {
+			headers: this.headers,
+		}).then(this._handleServerResponde);
+	}
 
 	getInitialCards() {
 		return fetch(`${this.baseUrl}/cards`, { headers: this.headers }).then(
