@@ -1,5 +1,5 @@
 export class Popup {
-	constructor(popupSelector, buttonSelector) {
+	constructor(popupSelector) {
 		this._popupSelector = document.querySelector(popupSelector);
 		this._buttonSelector = this._popupSelector.querySelector(".popup__close");
 	}

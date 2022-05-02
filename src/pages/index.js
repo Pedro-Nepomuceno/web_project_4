@@ -8,12 +8,12 @@ import { PopupWithForm } from "../components/popupWithForm.js";
 import { UserInfo } from "../components/userInfo.js";
 import {
 	formSettings,
-	photoArray,
 	profileName,
 	profileText,
 	addCardModal,
 	photoGallery,
 	imageModal,
+	popupDelete,
 } from "../utils/constants.js";
 
 import { Api } from "../components/Api.js";
@@ -38,6 +38,9 @@ const newPopupPhoto = new Popup(addCardModal);
 
 newPopupPhoto.setEventListeners();
 
+export const newPopupDelete = new Popup(popupDelete);
+newPopupDelete.setEventListeners();
+
 const imagePopup = new PopupWithImage(imageModal);
 
 const popupProfile = new Popup(editProfile);
@@ -61,9 +64,9 @@ const api = new Api({
 	},
 });
 api.getUserInfo().then((userData) => {
+	console.log(userData);
+	userInfo.setUserInfo(userData);
 	profileAvatar.src = userData.avatar;
-	profileTitle.textContent = userData.name;
-	profileDescription.textContent = userData.about;
 });
 
 api.getInitialCards().then((cardData) => {
@@ -80,7 +83,10 @@ const photosSection = new Section(photoGallery);
 
 const editProfileForm = new PopupWithForm(editProfile, {
 	handleSubmit: (data) => {
-		userInfo.setUserInfo(data);
+		api.setUserProfile(data).then((profileData) => {
+			console.log(profileData);
+			userInfo.setUserInfo(profileData);
+		});
 	},
 });
 
@@ -119,18 +125,3 @@ profileFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 const tryApi = api.getInitialCards();
-
-// fetch("https://around.nomoreparties.co/v1/group-12/cards", {
-// 	headers: {
-// 		authorization: "b240a05b-bedc-4219-9e26-b0942ecb0fb0",
-// 		"Content-Type": "application/json",
-// 	},
-// })
-// 	.then((res) => res.json())
-// 	.then((data) => console.log(data));
-
-// function renderCard(item, container) {
-// 	const element = new Card(item, "#elements-template", handleCardClick);
-// 	const newCard = element.generateCard();
-// 	container.addItem(newCard);
-// }

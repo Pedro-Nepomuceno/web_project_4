@@ -6,30 +6,28 @@ export class Api {
 	getUserInfo() {
 		return fetch(`${this.baseUrl}/users/me`, {
 			headers: this.headers,
-		}).then(this._handleServerResponde);
+		}).then(this._handleServerResponse);
 	}
 
 	getInitialCards() {
 		return fetch(`${this.baseUrl}/cards`, { headers: this.headers }).then(
-			this._handleServerResponde
+			this._handleServerResponse
 		);
 	}
 
-	_handleServerResponde(res) {
+	_handleServerResponse(res) {
 		return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 	}
-	setUserProfile(name, about) {
-		fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
+
+	setUserProfile({ name, about }) {
+		return fetch(`${this.baseUrl}/users/me`, {
 			method: "PATCH",
-			headers: {
-				authorization: "b240a05b-bedc-4219-9e26-b0942ecb0fb0",
-				"Content-Type": "application/json",
-			},
+			headers: this.headers,
 			body: JSON.stringify({
-				name: name,
-				link: about,
+				name,
+				about,
 			}),
-		});
+		}).then(this._handleServerResponse);
 	}
 
 	addNewCard({ name, link }) {
@@ -45,7 +43,7 @@ export class Api {
 
 	likePhoto() {
 		fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
-			method: "PATCH",
+			method: "POST",
 			headers: {
 				authorization: "b240a05b-bedc-4219-9e26-b0942ecb0fb0",
 				"Content-Type": "application/json",
@@ -63,13 +61,3 @@ export class Api {
 		});
 	}
 }
-// method: "POST",
-// 			headers: {
-// 				authorization: "b240a05b-bedc-4219-9e26-b0942ecb0fb0",
-// 				"Content-Type": "application/json",
-// 			},
-// 			body: JSON.stringify({
-// 				name: name,
-// 				link: link,
-// 			}),
-// 		});

@@ -1,3 +1,6 @@
+import { Api } from "./Api";
+import { newPopupDelete } from "../pages/index.js";
+import { confirmDelete } from "../utils/constants.js";
 export class Card {
 	constructor(data, cardSelector, handleCardClick) {
 		this.data = data;
@@ -14,6 +17,13 @@ export class Card {
 		return cardElement;
 	}
 
+	_likeCount() {
+		const likeCount = this._element.querySelector(".elements__counter");
+		const countLike = this._element.querySelector(".elements__info-button");
+		if (countLike.classList.contains(".elements__info-button_active")) {
+			likeCount.textContent = 1;
+		}
+	}
 	generateCard() {
 		this._element = this._getTemplate();
 		const imageElement = this._element.querySelector(".elements__pic");
@@ -21,22 +31,26 @@ export class Card {
 		imageElement.alt = this.data.name;
 		this._element.querySelector(".elements__info-text").textContent =
 			this.data.name;
-
+		const userId = this.data.owner._id;
 		this._setEventListeners();
-
 		return this._element;
 	}
 	_setEventListeners() {
 		this._element
 			.querySelector(".elements__info-button")
 			.addEventListener("click", (evt) => {
+				const likeCount = this._element.querySelector(".elements__counter");
 				evt.target.classList.toggle("elements__info-button_active");
 			});
 		this._element
 			.querySelector(".elements__delete")
 			.addEventListener("click", () => {
-				this._element.remove();
+				newPopupDelete.open();
 			});
+		confirmDelete.addEventListener("click", () => {
+			this._element.remove();
+			newPopupDelete.close();
+		});
 		this._element
 			.querySelector(".elements__pic")
 			.addEventListener("click", () => {

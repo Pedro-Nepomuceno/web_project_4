@@ -7,10 +7,11 @@ export class UserInfo {
 		return {
 			userName: this._userNameElement.textContent,
 			userDescription: this._userJobElement.textContent,
+			id: this._userId,
 		};
 	}
-	setUserInfo({ name, description }) {
+	setUserInfo({ name, about }) {
 		this._userNameElement.textContent = name;
-		this._userJobElement.textContent = description;
+		this._userJobElement.textContent = about;
 	}
 }
