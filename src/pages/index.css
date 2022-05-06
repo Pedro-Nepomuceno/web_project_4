@@ -39,3 +39,4 @@
 @import url(../blocks/elements/__counter/elements__counter.css);
 @import url(../blocks/elements/__like/elements__like.css);
 @import url(../blocks/popup/__content/_type/popup__content_type_delete.css);
+@import url(../blocks/elements/__delete/_hidden/elements__delete_hidden.css);

@@ -10,10 +10,12 @@ import {
 	formSettings,
 	profileName,
 	profileText,
+	profilePhoto,
 	addCardModal,
 	photoGallery,
 	imageModal,
 	popupDelete,
+	confirmDelete,
 } from "../utils/constants.js";
 
 import { Api } from "../components/Api.js";
@@ -63,20 +65,45 @@ const api = new Api({
 		"Content-Type": "application/json",
 	},
 });
-api.getUserInfo().then((userData) => {
-	console.log(userData);
-	userInfo.setUserInfo(userData);
-	profileAvatar.src = userData.avatar;
-});
 
-api.getInitialCards().then((cardData) => {
-	cardData.forEach((card) => {
-		photosSection.addItem(newCard(card));
+let userId = null;
+
+api.getAppInfo().then(([cardData, info]) => {
+	userId = info._id;
+	userInfo.setUserInfo(info);
+
+	cardData.forEach((data) => {
+		photosSection.addItem(newCard(data));
 	});
 });
 
-const newCard = function createNewCard(data) {
-	return new Card(data, "#elements-template", handleCardClick).generateCard();
+// const userId = api.getUserInfo().then((userData) => {
+// 	userInfo.setUserInfo(userData);
+// 	profileAvatar.src = userData.avatar;
+// });
+
+// api.getInitialCards().then((cardData) => {
+// 	cardData.forEach((card) => {
+// 		photosSection.addItem(newCard(card));
+// 	});
+// });
+
+const newCard = (data) => {
+	const createNewCard = new Card({
+		data,
+		cardSelector: "#elements-template",
+		handleCardClick,
+		currentId: userId,
+		handleTrashButton: () => {
+			confirmDelete.addEventListener("submit", () => {
+				api.deleteCard({ id: data._id }).then(() => {
+					createNewCard.removeCard();
+				});
+			});
+		},
+	});
+	console.log(data._id);
+	return createNewCard.generateCard();
 };
 
 const photosSection = new Section(photoGallery);
@@ -91,7 +118,8 @@ const editProfileForm = new PopupWithForm(editProfile, {
 });
 
 editProfileForm.setEventListeners();
-const userInfo = new UserInfo({ profileName, profileText });
+
+const userInfo = new UserInfo({ profileName, profileText, profilePhoto });
 
 editButton.addEventListener("click", () => {
 	const currentUserInfo = userInfo.getUserInfo();
@@ -123,5 +151,3 @@ buttonAdd.addEventListener("click", () => {
 profileFormValidator.enableValidation();
 
 addFormValidator.enableValidation();
-
-const tryApi = api.getInitialCards();

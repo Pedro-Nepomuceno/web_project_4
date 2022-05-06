@@ -8,6 +8,7 @@ export const formSettings = {
 };
 export const profileName = ".profile__name";
 export const profileText = ".profile__text";
+export const profilePhoto = ".profile__avatar-pic";
 export const addCardModal = "#add-popup";
 export const photoGallery = ".elements";
 export const imageModal = "#photo";

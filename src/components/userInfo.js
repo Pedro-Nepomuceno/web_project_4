@@ -1,7 +1,8 @@
 export class UserInfo {
-	constructor({ profileName, profileText }) {
+	constructor({ profileName, profileText, profilePhoto }) {
 		this._userNameElement = document.querySelector(profileName);
 		this._userJobElement = document.querySelector(profileText);
+		this._userPhoto = document.querySelector(profilePhoto);
 	}
 	getUserInfo() {
 		return {
@@ -10,8 +11,10 @@ export class UserInfo {
 			id: this._userId,
 		};
 	}
-	setUserInfo({ name, about }) {
+	setUserInfo({ avatar, name, about, id }) {
 		this._userNameElement.textContent = name;
 		this._userJobElement.textContent = about;
+		this._userPhoto.src = avatar;
+		this._userId = id;
 	}
 }

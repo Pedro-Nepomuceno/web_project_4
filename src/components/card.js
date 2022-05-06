@@ -2,10 +2,18 @@ import { Api } from "./Api";
 import { newPopupDelete } from "../pages/index.js";
 import { confirmDelete } from "../utils/constants.js";
 export class Card {
-	constructor(data, cardSelector, handleCardClick) {
+	constructor({
+		data,
+		cardSelector,
+		handleCardClick,
+		currentId,
+		handleTrashButton,
+	}) {
 		this.data = data;
 		this._cardSelector = cardSelector;
 		this._handleCardClick = handleCardClick;
+		this._handleTrashButton = handleTrashButton;
+		this._currentId = currentId;
 	}
 
 	_getTemplate() {
@@ -31,9 +39,19 @@ export class Card {
 		imageElement.alt = this.data.name;
 		this._element.querySelector(".elements__info-text").textContent =
 			this.data.name;
-		const userId = this.data.owner._id;
+		const ownerId = this.data.owner._id;
+		if (ownerId !== this._currentId) {
+			this._element
+				.querySelector(".elements__delete")
+				.classList.add("elements__delete_hidden");
+		}
+
 		this._setEventListeners();
 		return this._element;
+	}
+	removeCard() {
+		this._element.remove();
+		newPopupDelete.close();
 	}
 	_setEventListeners() {
 		this._element
@@ -47,10 +65,7 @@ export class Card {
 			.addEventListener("click", () => {
 				newPopupDelete.open();
 			});
-		confirmDelete.addEventListener("click", () => {
-			this._element.remove();
-			newPopupDelete.close();
-		});
+
 		this._element
 			.querySelector(".elements__pic")
 			.addEventListener("click", () => {

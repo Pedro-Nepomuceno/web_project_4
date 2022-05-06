@@ -9,6 +9,9 @@ export class Api {
 		}).then(this._handleServerResponse);
 	}
 
+	getAppInfo() {
+		return Promise.all([this.getInitialCards(), this.getUserInfo()]);
+	}
 	getInitialCards() {
 		return fetch(`${this.baseUrl}/cards`, { headers: this.headers }).then(
 			this._handleServerResponse
@@ -38,6 +41,13 @@ export class Api {
 				name,
 				link,
 			}),
+		}).then(this._handleServerResponse);
+	}
+
+	deleteCard({ id }) {
+		return fetch(`${this.baseUrl}/cards/${id}`, {
+			method: "DELETE",
+			headers: this.headers,
 		}).then(this._handleServerResponse);
 	}
 
