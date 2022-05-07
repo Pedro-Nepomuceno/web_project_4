@@ -51,23 +51,10 @@ export class Api {
 		}).then(this._handleServerResponse);
 	}
 
-	likePhoto() {
-		fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
-			method: "POST",
-			headers: {
-				authorization: "b240a05b-bedc-4219-9e26-b0942ecb0fb0",
-				"Content-Type": "application/json",
-			},
-		});
-	}
-
-	removeLike() {
-		fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
-			method: "PATCH",
-			headers: {
-				authorization: "b240a05b-bedc-4219-9e26-b0942ecb0fb0",
-				"Content-Type": "application/json",
-			},
-		});
+	handleLikePhoto(id, like) {
+		return fetch(`${this.baseUrl}/cards/likes/${id}`, {
+			method: like ? "PUT" : "DELETE",
+			headers: this.headers,
+		}).then(this._handleServerResponse);
 	}
 }

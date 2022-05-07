@@ -1,0 +1,9 @@
+.profile__overlay {
+	transition: 0.3s ease;
+	position: relative;
+	opacity: 0;
+}
+.profile__overlay:hover {
+	background-color: rgba(0, 0, 0);
+	opacity: 0.8;
+}

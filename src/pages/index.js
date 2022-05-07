@@ -77,17 +77,6 @@ api.getAppInfo().then(([cardData, info]) => {
 	});
 });
 
-// const userId = api.getUserInfo().then((userData) => {
-// 	userInfo.setUserInfo(userData);
-// 	profileAvatar.src = userData.avatar;
-// });
-
-// api.getInitialCards().then((cardData) => {
-// 	cardData.forEach((card) => {
-// 		photosSection.addItem(newCard(card));
-// 	});
-// });
-
 const newCard = (data) => {
 	const createNewCard = new Card({
 		data,
@@ -95,14 +84,18 @@ const newCard = (data) => {
 		handleCardClick,
 		currentId: userId,
 		handleTrashButton: () => {
-			confirmDelete.addEventListener("submit", () => {
+			confirmDelete.addEventListener("click", () => {
 				api.deleteCard({ id: data._id }).then(() => {
 					createNewCard.removeCard();
 				});
 			});
 		},
+		handleLikeButton: () => {
+			api.handleLikePhoto(data._id, createNewCard.isLike()).then((dataLike) => {
+				createNewCard.setLikeCounter(dataLike.likes);
+			});
+		},
 	});
-	console.log(data._id);
 	return createNewCard.generateCard();
 };
 
