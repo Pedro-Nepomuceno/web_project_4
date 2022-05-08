@@ -11,6 +11,7 @@ export class Card {
 		handleLikeButton,
 	}) {
 		this.data = data;
+		this.likes = data.likes;
 		this._cardSelector = cardSelector;
 		this._handleCardClick = handleCardClick;
 		this._handleTrashButton = handleTrashButton;
@@ -26,10 +27,17 @@ export class Card {
 
 		return cardElement;
 	}
-	setLikeCounter(likes) {
-		this.likes = likes;
-
+	setLikeCounter(update) {
+		if (update) {
+			this.likes = update.likes;
+		}
 		this._likeCount.textContent = this.likes.length;
+
+		if (this.likes.find((data) => data._id === this._currentId)) {
+			this._buttonLike.classList.add("elements__info-button_active");
+		} else {
+			this._buttonLike.classList.remove("elements__info-button_active");
+		}
 	}
 
 	isLike() {

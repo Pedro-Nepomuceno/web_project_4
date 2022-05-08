@@ -92,7 +92,7 @@ const newCard = (data) => {
 		},
 		handleLikeButton: () => {
 			api.handleLikePhoto(data._id, createNewCard.isLike()).then((dataLike) => {
-				createNewCard.setLikeCounter(dataLike.likes);
+				createNewCard.setLikeCounter(dataLike);
 			});
 		},
 	});
