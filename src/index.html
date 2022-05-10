@@ -18,21 +18,22 @@
 		<main>
 			<section class="profile">
 				<div class="profile__avatar">
-					<img class="profile__avatar-pic" src="" alt="profile picture" />
 					<div class="profile__overlay">
 						<button type="button" class="profile__change-photo"></button>
 					</div>
-					<div class="profile__info">
-						<h1 class="profile__name">Pedro Nepomuceno</h1>
-						<p class="profile__text">Explorer</p>
-
-						<button
-							aria-label="Edit"
-							type="button"
-							class="profile__edit"
-						></button>
-					</div>
+					<img class="profile__avatar-pic" src="" alt="profile picture" />
 				</div>
+				<div class="profile__info">
+					<h1 class="profile__name">Pedro Nepomuceno</h1>
+					<p class="profile__text">Explorer</p>
+
+					<button
+						aria-label="Edit"
+						type="button"
+						class="profile__edit"
+					></button>
+				</div>
+
 				<button aria-label="Add" type="button" class="profile__plus"></button>
 			</section>
 			<section class="elements">
@@ -130,6 +131,27 @@
 				</button>
 			</div>
 		</div>
+		<div class="popup" id="edit-popupPicture">
+			<div class="popup__content popup__content_type_edit">
+				<button class="popup__close" type="button"></button>
+				<h3 class="popup__title">Change profile picture</h3>
+				<form id="add-avatar" class="popup__form" name="add avatar" novalidate>
+					<input
+						name="avatar"
+						id="avatar"
+						type="url"
+						placeholder="Link"
+						class="popup__input"
+						required
+						minlength="6"
+					/>
+					<button type="submit" class="popup__submit popup__submit_type_delete">
+						Save
+					</button>
+				</form>
+			</div>
+		</div>
+
 		<template id="elements-template">
 			<div class="elements__photo">
 				<img class="elements__pic" src=" " alt=" " />

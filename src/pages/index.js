@@ -12,6 +12,7 @@ import {
 	profileText,
 	profilePhoto,
 	addCardModal,
+	editProfileModal,
 	photoGallery,
 	imageModal,
 	popupDelete,
@@ -31,14 +32,17 @@ const addInputDescription = document.querySelector("#url");
 
 export const closeModalButton = document.querySelectorAll(".popup__close");
 const editButton = document.querySelector(".profile__edit");
+const editProfilePicture = document.querySelector(".profile__change-photo");
 const buttonAdd = document.querySelector(".profile__plus");
 const profileAvatar = document.querySelector(".profile__avatar-pic");
 const profileTitle = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__text");
 
 const newPopupPhoto = new Popup(addCardModal);
-
 newPopupPhoto.setEventListeners();
+
+const newModalEditPicture = new Popup(editProfileModal);
+newModalEditPicture.setEventListeners();
 
 export const newPopupDelete = new Popup(popupDelete);
 newPopupDelete.setEventListeners();
@@ -57,6 +61,15 @@ const addCardForm = new PopupWithForm(addCardModal, {
 });
 
 addCardForm.setEventListeners();
+
+const editPictureProfile = new PopupWithForm(editProfileModal, {
+	handleSubmit: (data) => {
+		api.editProfilePic(data).then((avatar) => {
+			profileAvatar.src = avatar;
+		});
+	},
+});
+editPictureProfile.setEventListeners();
 
 const api = new Api({
 	baseUrl: "https://around.nomoreparties.co/v1/group-12",
@@ -83,6 +96,7 @@ const newCard = (data) => {
 		cardSelector: "#elements-template",
 		handleCardClick,
 		currentId: userId,
+
 		handleTrashButton: () => {
 			confirmDelete.addEventListener("click", () => {
 				api.deleteCard({ id: data._id }).then(() => {
@@ -104,7 +118,6 @@ const photosSection = new Section(photoGallery);
 const editProfileForm = new PopupWithForm(editProfile, {
 	handleSubmit: (data) => {
 		api.setUserProfile(data).then((profileData) => {
-			console.log(profileData);
 			userInfo.setUserInfo(profileData);
 		});
 	},
@@ -119,6 +132,10 @@ editButton.addEventListener("click", () => {
 	inputName.value = currentUserInfo.userName;
 	inputDescription.value = currentUserInfo.userDescription;
 	popupProfile.open();
+});
+
+editProfilePicture.addEventListener("click", () => {
+	newModalEditPicture.open();
 });
 
 imagePopup.setEventListeners();

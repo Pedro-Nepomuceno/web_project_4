@@ -56,6 +56,11 @@ export class Card {
 		this._element = this._getTemplate();
 		this._buttonLike = this._element.querySelector(".elements__info-button");
 		this._likeCount = this._element.querySelector(".elements__counter");
+		this._likeCount.textContent = this.data.likes.length;
+		if (this.data.likes.some((like) => like._id === this._currentId)) {
+			this._buttonLike.classList.add("elements__info-button_active");
+		}
+
 		const imageElement = this._element.querySelector(".elements__pic");
 		imageElement.src = this.data.link;
 		imageElement.alt = this.data.name;

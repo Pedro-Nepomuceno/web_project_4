@@ -57,4 +57,14 @@ export class Api {
 			headers: this.headers,
 		}).then(this._handleServerResponse);
 	}
+
+	editProfilePic({ avatar }) {
+		return fetch(`${this.baseUrl}/users/me/avatar`, {
+			method: "PATCH",
+			headers: this.headers,
+			body: JSON.stringify({
+				avatar,
+			}),
+		}).then(this._handleServerResponse);
+	}
 }

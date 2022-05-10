@@ -10,6 +10,7 @@ export const profileName = ".profile__name";
 export const profileText = ".profile__text";
 export const profilePhoto = ".profile__avatar-pic";
 export const addCardModal = "#add-popup";
+export const editProfileModal = "#edit-popupPicture";
 export const photoGallery = ".elements";
 export const imageModal = "#photo";
 export const popupDelete = "#delete-popup";
