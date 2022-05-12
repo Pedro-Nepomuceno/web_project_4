@@ -54,9 +54,18 @@ popupProfile.setEventListeners();
 
 const addCardForm = new PopupWithForm(addCardModal, {
 	handleSubmit: (data) => {
-		api.addNewCard(data).then((cardData) => {
-			photosSection.addItem(newCard(cardData));
-		});
+		renderLoading(addCardModal, true);
+		api
+			.addNewCard(data)
+			.then((cardData) => {
+				photosSection.addItem(newCard(cardData));
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(() => {
+				renderLoading(addCardModal, false);
+			});
 	},
 });
 
@@ -64,9 +73,19 @@ addCardForm.setEventListeners();
 
 const editPictureProfile = new PopupWithForm(editProfileModal, {
 	handleSubmit: (data) => {
-		api.editProfilePic(data).then((avatar) => {
-			profileAvatar.src = avatar;
-		});
+		renderLoading(editProfileModal, true);
+		api
+			.editProfilePic(data)
+			.then(({ avatar }) => {
+				profileAvatar.src = avatar;
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(() => {
+				renderLoading(editProfileModal, false);
+			});
+		addProfileValidator.resetValidation();
 	},
 });
 editPictureProfile.setEventListeners();
@@ -117,9 +136,18 @@ const photosSection = new Section(photoGallery);
 
 const editProfileForm = new PopupWithForm(editProfile, {
 	handleSubmit: (data) => {
-		api.setUserProfile(data).then((profileData) => {
-			userInfo.setUserInfo(profileData);
-		});
+		renderLoading(editProfile, true);
+		api
+			.setUserProfile(data)
+			.then((profileData) => {
+				userInfo.setUserInfo(profileData);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(() => {
+				renderLoading(editProfile, false);
+			});
 	},
 });
 
@@ -143,10 +171,11 @@ imagePopup.setEventListeners();
 function handleCardClick(data) {
 	imagePopup.open(data);
 }
-
+const addProfile = "#add-profile";
 const addFormSelector = "#add-form";
 const addProfileFormSelector = "#profile-form";
 
+const addProfileValidator = new FormValidator(formSettings, addProfile);
 const addFormValidator = new FormValidator(formSettings, addFormSelector);
 const profileFormValidator = new FormValidator(
 	formSettings,
@@ -161,3 +190,17 @@ buttonAdd.addEventListener("click", () => {
 profileFormValidator.enableValidation();
 
 addFormValidator.enableValidation();
+
+addProfileValidator.enableValidation();
+
+function renderLoading(popupSelector, isLoading) {
+	const submitButton = document.querySelector(
+		`${popupSelector} ${formSettings.submitButtonSelector}`
+	);
+	console.log(submitButton);
+	if (isLoading === true) {
+		submitButton.textContent = "Saving";
+	} else {
+		submitButton.textContent = "Save";
+	}
+}

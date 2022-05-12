@@ -135,7 +135,7 @@
 			<div class="popup__content popup__content_type_edit">
 				<button class="popup__close" type="button"></button>
 				<h3 class="popup__title">Change profile picture</h3>
-				<form id="add-avatar" class="popup__form" name="add avatar" novalidate>
+				<form id="add-profile" class="popup__form" name="add avatar" novalidate>
 					<input
 						name="avatar"
 						id="avatar"
@@ -145,9 +145,8 @@
 						required
 						minlength="6"
 					/>
-					<button type="submit" class="popup__submit popup__submit_type_delete">
-						Save
-					</button>
+					<span class="popup__error" id="avatar-error"></span>
+					<button type="submit" class="popup__submit" disabled>Save</button>
 				</form>
 			</div>
 		</div>
