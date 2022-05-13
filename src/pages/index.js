@@ -59,6 +59,7 @@ const addCardForm = new PopupWithForm(addCardModal, {
 			.addNewCard(data)
 			.then((cardData) => {
 				photosSection.addItem(newCard(cardData));
+				addCardForm.close();
 			})
 			.catch((err) => {
 				console.log(err);
@@ -78,6 +79,7 @@ const editPictureProfile = new PopupWithForm(editProfileModal, {
 			.editProfilePic(data)
 			.then(({ avatar }) => {
 				profileAvatar.src = avatar;
+				editPictureProfile.close();
 			})
 			.catch((err) => {
 				console.log(err);
@@ -117,16 +119,20 @@ const newCard = (data) => {
 		currentId: userId,
 
 		handleTrashButton: () => {
+			newPopupDelete.open();
 			confirmDelete.addEventListener("click", () => {
 				api.deleteCard({ id: data._id }).then(() => {
 					createNewCard.removeCard();
+					newPopupDelete.close();
 				});
 			});
 		},
 		handleLikeButton: () => {
-			api.handleLikePhoto(data._id, createNewCard.isLike()).then((dataLike) => {
-				createNewCard.setLikeCounter(dataLike);
-			});
+			api
+				.handleLikePhoto(data._id, createNewCard.isLiked())
+				.then((dataLike) => {
+					createNewCard.updateLikes(dataLike);
+				});
 		},
 	});
 	return createNewCard.generateCard();
@@ -141,6 +147,7 @@ const editProfileForm = new PopupWithForm(editProfile, {
 			.setUserProfile(data)
 			.then((profileData) => {
 				userInfo.setUserInfo(profileData);
+				editProfileForm.close();
 			})
 			.catch((err) => {
 				console.log(err);

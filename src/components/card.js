@@ -1,6 +1,3 @@
-import { Api } from "./Api";
-import { newPopupDelete } from "../pages/index.js";
-import { confirmDelete } from "../utils/constants.js";
 export class Card {
 	constructor({
 		data,
@@ -11,7 +8,7 @@ export class Card {
 		handleLikeButton,
 	}) {
 		this.data = data;
-		this.likes = data.likes;
+		this._likes = data.likes;
 		this._cardSelector = cardSelector;
 		this._handleCardClick = handleCardClick;
 		this._handleTrashButton = handleTrashButton;
@@ -27,27 +24,27 @@ export class Card {
 
 		return cardElement;
 	}
-	setLikeCounter(update) {
-		if (update) {
-			this.likes = update.likes;
-		}
-		this._likeCount.textContent = this.likes.length;
 
-		if (this.likes.find((data) => data._id === this._currentId)) {
-			this._buttonLike.classList.add("elements__info-button_active");
-		} else {
-			this._buttonLike.classList.remove("elements__info-button_active");
+	_renderLikes() {
+		this._likeCount.textContent = this._likes.length;
+	}
+
+	updateLikes(update) {
+		if (update) {
+			this._likes = update.likes;
+		}
+
+		this._renderLikes();
+
+		if (this._likes.find((data) => data._id === this._currentId)) {
+			this.toggleIsLiked();
 		}
 	}
 
-	isLike() {
-		const buttonStatus = this._buttonLike.classList.contains(
-			"elements__info-button_active"
-		);
-
-		if (buttonStatus === true) {
+	isLiked() {
+		if (this._buttonLike.classList.contains("elements__info-button_active")) {
 			return false;
-		} else if (buttonStatus === false) {
+		} else {
 			return true;
 		}
 	}
@@ -56,7 +53,7 @@ export class Card {
 		this._element = this._getTemplate();
 		this._buttonLike = this._element.querySelector(".elements__info-button");
 		this._likeCount = this._element.querySelector(".elements__counter");
-		this._likeCount.textContent = this.data.likes.length;
+		this._renderLikes();
 		if (this.data.likes.some((like) => like._id === this._currentId)) {
 			this._buttonLike.classList.add("elements__info-button_active");
 		}
@@ -78,7 +75,6 @@ export class Card {
 	}
 	removeCard() {
 		this._element.remove();
-		newPopupDelete.close();
 	}
 
 	toggleIsLiked() {
@@ -92,15 +88,13 @@ export class Card {
 		this._element
 			.querySelector(".elements__info-button")
 			.addEventListener("click", () => {
-				this._handleLikeButton(this.isLike());
-				this.toggleIsLiked();
-				this.setLikeCounter();
+				this._handleLikeButton(this.isLiked());
+				this.updateLikes();
 			});
 
 		this._element
 			.querySelector(".elements__delete")
 			.addEventListener("click", () => {
-				newPopupDelete.open();
 				this._handleTrashButton();
 			});
 
