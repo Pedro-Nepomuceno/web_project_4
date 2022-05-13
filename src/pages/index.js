@@ -6,6 +6,7 @@ import { Popup } from "../components/popup.js";
 import { PopupWithImage } from "../components/popUpWithImage.js";
 import { PopupWithForm } from "../components/popupWithForm.js";
 import { UserInfo } from "../components/userInfo.js";
+import { renderLoading } from "../utils/utils.js";
 import {
 	formSettings,
 	profileName,
@@ -38,14 +39,14 @@ const profileAvatar = document.querySelector(".profile__avatar-pic");
 const profileTitle = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__text");
 
-const newPopupPhoto = new Popup(addCardModal);
-newPopupPhoto.setEventListeners();
+const popupPhoto = new Popup(addCardModal);
+popupPhoto.setEventListeners();
 
-const newModalEditPicture = new Popup(editProfileModal);
-newModalEditPicture.setEventListeners();
+const modalEditPicture = new Popup(editProfileModal);
+modalEditPicture.setEventListeners();
 
-export const newPopupDelete = new Popup(popupDelete);
-newPopupDelete.setEventListeners();
+const popupRemove = new Popup(popupDelete);
+popupRemove.setEventListeners();
 
 const imagePopup = new PopupWithImage(imageModal);
 
@@ -58,7 +59,7 @@ const addCardForm = new PopupWithForm(addCardModal, {
 		api
 			.addNewCard(data)
 			.then((cardData) => {
-				photosSection.addItem(newCard(cardData));
+				photosSection.addItem(createCard(cardData));
 				addCardForm.close();
 			})
 			.catch((err) => {
@@ -78,8 +79,9 @@ const editPictureProfile = new PopupWithForm(editProfileModal, {
 		api
 			.editProfilePic(data)
 			.then(({ avatar }) => {
-				profileAvatar.src = avatar;
+				userInfo.setAvatar(avatar);
 				editPictureProfile.close();
+				addProfileValidator.resetValidation();
 			})
 			.catch((err) => {
 				console.log(err);
@@ -87,7 +89,6 @@ const editPictureProfile = new PopupWithForm(editProfileModal, {
 			.finally(() => {
 				renderLoading(editProfileModal, false);
 			});
-		addProfileValidator.resetValidation();
 	},
 });
 editPictureProfile.setEventListeners();
@@ -102,16 +103,21 @@ const api = new Api({
 
 let userId = null;
 
-api.getAppInfo().then(([cardData, info]) => {
-	userId = info._id;
-	userInfo.setUserInfo(info);
+api
+	.getAppInfo()
+	.then(([cardData, info]) => {
+		userId = info._id;
+		userInfo.setUserInfo(info);
 
-	cardData.forEach((data) => {
-		photosSection.addItem(newCard(data));
+		cardData.forEach((data) => {
+			photosSection.addItem(createCard(data));
+		});
+	})
+	.catch((err) => {
+		console.log(err);
 	});
-});
 
-const newCard = (data) => {
+const createCard = (data) => {
 	const createNewCard = new Card({
 		data,
 		cardSelector: "#elements-template",
@@ -119,12 +125,21 @@ const newCard = (data) => {
 		currentId: userId,
 
 		handleTrashButton: () => {
-			newPopupDelete.open();
+			popupRemove.open();
 			confirmDelete.addEventListener("click", () => {
-				api.deleteCard({ id: data._id }).then(() => {
-					createNewCard.removeCard();
-					newPopupDelete.close();
-				});
+				renderLoading(editProfileModal, true);
+				api
+					.deleteCard({ id: data._id })
+					.then(() => {
+						createNewCard.removeCard();
+						popupRemove.close();
+					})
+					.catch((err) => {
+						console.log(err);
+					})
+					.finally(() => {
+						renderLoading(editProfileModal, false);
+					});
 			});
 		},
 		handleLikeButton: () => {
@@ -132,6 +147,10 @@ const newCard = (data) => {
 				.handleLikePhoto(data._id, createNewCard.isLiked())
 				.then((dataLike) => {
 					createNewCard.updateLikes(dataLike);
+					createNewCard._renderLikes();
+				})
+				.catch((err) => {
+					console.log(err);
 				});
 		},
 	});
@@ -170,7 +189,7 @@ editButton.addEventListener("click", () => {
 });
 
 editProfilePicture.addEventListener("click", () => {
-	newModalEditPicture.open();
+	modalEditPicture.open();
 });
 
 imagePopup.setEventListeners();
@@ -191,7 +210,7 @@ const profileFormValidator = new FormValidator(
 
 buttonAdd.addEventListener("click", () => {
 	addFormValidator.resetValidation();
-	newPopupPhoto.open();
+	popupPhoto.open();
 });
 
 profileFormValidator.enableValidation();
@@ -199,15 +218,3 @@ profileFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 addProfileValidator.enableValidation();
-
-function renderLoading(popupSelector, isLoading) {
-	const submitButton = document.querySelector(
-		`${popupSelector} ${formSettings.submitButtonSelector}`
-	);
-	console.log(submitButton);
-	if (isLoading === true) {
-		submitButton.textContent = "Saving";
-	} else {
-		submitButton.textContent = "Save";
-	}
-}

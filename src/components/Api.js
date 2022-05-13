@@ -53,7 +53,7 @@ export class Api {
 
 	handleLikePhoto(id, like) {
 		return fetch(`${this.baseUrl}/cards/likes/${id}`, {
-			method: like ? "PUT" : "DELETE",
+			method: like ? "DELETE" : "PUT",
 			headers: this.headers,
 		}).then(this._handleServerResponse);
 	}

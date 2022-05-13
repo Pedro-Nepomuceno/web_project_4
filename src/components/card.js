@@ -33,20 +33,15 @@ export class Card {
 		if (update) {
 			this._likes = update.likes;
 		}
+		if (this.isLiked()) {
+			this._renderLikes();
 
-		this._renderLikes();
-
-		if (this._likes.find((data) => data._id === this._currentId)) {
 			this.toggleIsLiked();
 		}
 	}
 
 	isLiked() {
-		if (this._buttonLike.classList.contains("elements__info-button_active")) {
-			return false;
-		} else {
-			return true;
-		}
+		return this._likes.find((data) => data._id === this._currentId);
 	}
 
 	generateCard() {
@@ -84,11 +79,12 @@ export class Card {
 			this._buttonLike.classList.add("elements__info-button_active");
 		}
 	}
+
 	_setEventListeners() {
 		this._element
 			.querySelector(".elements__info-button")
 			.addEventListener("click", () => {
-				this._handleLikeButton(this.isLiked());
+				this._handleLikeButton();
 				this.updateLikes();
 			});
 

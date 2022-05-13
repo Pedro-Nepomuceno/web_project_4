@@ -17,4 +17,7 @@ export class UserInfo {
 		this._userPhoto.src = avatar;
 		this._userId = id;
 	}
+	setAvatar(data) {
+		this._userPhoto.src = data;
+	}
 }
