@@ -3,8 +3,8 @@ export function renderLoading(popupSelector, isLoading) {
 	const submitButton = document.querySelector(
 		`${popupSelector} ${formSettings.submitButtonSelector}`
 	);
-	if (isLoading === true) {
-		submitButton.textContent = "Loading";
+	if (isLoading) {
+		submitButton.textContent = "Loading...";
 	} else {
 		submitButton.textContent = "Save";
 	}

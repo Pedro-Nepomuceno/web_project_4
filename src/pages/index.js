@@ -118,7 +118,7 @@ api
 	});
 
 const createCard = (data) => {
-	const createNewCard = new Card({
+	const newCard = new Card({
 		data,
 		cardSelector: "#elements-template",
 		handleCardClick,
@@ -127,34 +127,33 @@ const createCard = (data) => {
 		handleTrashButton: () => {
 			popupRemove.open();
 			confirmDelete.addEventListener("click", () => {
-				renderLoading(editProfileModal, true);
+				renderLoading(popupDelete, true);
 				api
 					.deleteCard({ id: data._id })
 					.then(() => {
-						createNewCard.removeCard();
+						newCard.removeCard();
 						popupRemove.close();
 					})
 					.catch((err) => {
 						console.log(err);
 					})
 					.finally(() => {
-						renderLoading(editProfileModal, false);
+						renderLoading(popupDelete, false);
 					});
 			});
 		},
 		handleLikeButton: () => {
 			api
-				.handleLikePhoto(data._id, createNewCard.isLiked())
+				.handleLikePhoto(data._id, newCard.isLiked())
 				.then((dataLike) => {
-					createNewCard.updateLikes(dataLike);
-					createNewCard._renderLikes();
+					newCard.updateLikes(dataLike);
 				})
 				.catch((err) => {
 					console.log(err);
 				});
 		},
 	});
-	return createNewCard.generateCard();
+	return newCard.generateCard();
 };
 
 const photosSection = new Section(photoGallery);

@@ -27,17 +27,19 @@ export class Card {
 
 	_renderLikes() {
 		this._likeCount.textContent = this._likes.length;
+		if (this.isLiked()) {
+			this._buttonLike.classList.add("elements__info-button_active");
+		} else {
+			this._buttonLike.classList.remove("elements__info-button_active");
+		}
 	}
 
 	updateLikes(update) {
 		if (update) {
 			this._likes = update.likes;
 		}
-		if (this.isLiked()) {
-			this._renderLikes();
 
-			this.toggleIsLiked();
-		}
+		this._renderLikes();
 	}
 
 	isLiked() {
@@ -68,16 +70,9 @@ export class Card {
 		this._setEventListeners();
 		return this._element;
 	}
+
 	removeCard() {
 		this._element.remove();
-	}
-
-	toggleIsLiked() {
-		if (this._buttonLike.classList.contains("elements__info-button_active")) {
-			this._buttonLike.classList.remove("elements__info-button_active");
-		} else {
-			this._buttonLike.classList.add("elements__info-button_active");
-		}
 	}
 
 	_setEventListeners() {
@@ -85,7 +80,6 @@ export class Card {
 			.querySelector(".elements__info-button")
 			.addEventListener("click", () => {
 				this._handleLikeButton();
-				this.updateLikes();
 			});
 
 		this._element
