@@ -34,10 +34,8 @@ export class Card {
 		}
 	}
 
-	updateLikes(update) {
-		if (update) {
-			this._likes = update.likes;
-		}
+	updateLikes(likesData) {
+		this._likes = likesData.likes;
 
 		this._renderLikes();
 	}
@@ -51,10 +49,6 @@ export class Card {
 		this._buttonLike = this._element.querySelector(".elements__info-button");
 		this._likeCount = this._element.querySelector(".elements__counter");
 		this._renderLikes();
-		if (this.data.likes.some((like) => like._id === this._currentId)) {
-			this._buttonLike.classList.add("elements__info-button_active");
-		}
-
 		const imageElement = this._element.querySelector(".elements__pic");
 		imageElement.src = this.data.link;
 		imageElement.alt = this.data.name;
