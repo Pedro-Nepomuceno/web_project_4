@@ -1,6 +1,6 @@
 # Project 4: Around The U.S.
 
-Interactive page where users can add, remove, or like photos
+Interactive app where users can add, remove, and like photos
 
 
 ### Screen Sizes
