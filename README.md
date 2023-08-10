@@ -1,5 +1,6 @@
 # Project 4: Around The U.S.
 
+A culmination of Practicum by Yandex Bootcamp's Sprints.
 Interactive app where users can add, remove, and like photos
 
 
